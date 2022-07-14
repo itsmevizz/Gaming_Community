@@ -1,0 +1,19 @@
+{
+  "name": "gamingcommunity",
+  "version": "1.0.0",
+  "description": "A gaming community, React in the frond end.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsmevizz/Gaming_Community.git"
+  },
+  "author": "Vishnu s Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itsmevizz/Gaming_Community/issues"
+  },
+  "homepage": "https://github.com/itsmevizz/Gaming_Community#readme"
+}
