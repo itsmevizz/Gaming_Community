@@ -1,184 +1,65 @@
-import React, { useState } from "react";
-import { Transition } from "@headlessui/react";
-
+import React, { useState } from 'react'
+import {AiOutlineHome} from 'react-icons/ai'
+import {CgProfile} from 'react-icons/cg'
+import {GrGroup} from 'react-icons/gr'
+import {BsChatLeft} from 'react-icons/bs'
+import {TiGroupOutline} from 'react-icons/ti'
+import {HiOutlineUserGroup} from 'react-icons/hi'
+import {FaNetworkWired} from "react-icons/fa"
+import {GiNewspaper} from "react-icons/gi"
+import {MdOutlineLiveTv} from "react-icons/md"
+import {SiGooglemessages} from "react-icons/si"
 function HomeNavBar() {
-    const [isOpen, setIsOpen] = useState(false);
+    const  [dropdown, setDropDown] = useState(false)
     return (
         <div>
-            <nav className="bg-gray-800">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <img
-                                    className="h-8 w-8"
-                                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                                    alt="Workflow"
-                                />
+            <navbar>
+                <div className='flex h-10' >
+                    <div className='flex'>
+                    <div className='lg:ml-8 mt-10 text-3xl font-poppins font-bold mr-[50px] invisible lg:visible ml-[-250px]'>TEAMHOST</div>
+                    </div>
+                    <div className='flex justify-between w-full h-16 pt-2  shadow lg:shadow-xl'>
+                    <div><input className='max-w-[400px] w-full h-11 ml-2 lg:ml-14 lg:w-[400px] pl-5 rounded-md bg-gray-200' type="search" placeholder='Search' /> </div>
+                        <ul className='flex mr-3 lg:mr-9 content-center'>
+                            <div className='flex cursor-pointer'>
+                            <SiGooglemessages className='text-center m-2 mt-4 mr-5 text-2xl'/>
+                            <div className='w-5 h-5 bg-red-500 rounded-full absolute mt-6 ml-5 text-center text-white text-sm font-poppins'> 50 </div>
                             </div>
-                            <div className="hidden md:block">
-                                <div className="ml-10 flex items-baseline space-x-4">
-                                    <a
-                                        href="#"
-                                        className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Dashboard
-                                    </a>
-
-                                    <a
-                                        href="#"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Team
-                                    </a>
-
-                                    <a
-                                        href="#"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Projects
-                                    </a>
-
-                                    <a
-                                        href="#"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Calendar
-                                    </a>
-
-                                    <a
-                                        href="#"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Reports
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="-mr-2 flex md:hidden">
-                            <button
-                                onClick={() => setIsOpen(!isOpen)}
-                                type="button"
-                                className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                                aria-controls="mobile-menu"
-                                aria-expanded="false"
-                            >
-                                <span className="sr-only">Open main menu</span>
-                                {!isOpen ? (
-                                    <svg
-                                        className="block h-6 w-6"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M4 6h16M4 12h16M4 18h16"
-                                        />
-                                    </svg>
-                                ) : (
-                                    <svg
-                                        className="block h-6 w-6"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
-                                )}
+                            <button className='text-center block' onClick={()=>dropdown?setDropDown(false):setDropDown(true)}>
+                                <img className='w-9 rounded-full ' src="/Image/img_avatar.png" alt="Profile" />
                             </button>
-                        </div>
+                            <div className={dropdown? 'absolute mt-[60px] mx-[-30px] text-center':"hidden"}>
+                                <button>
+                                <ul className='w-[100px] h-auto bg-slate-50 font-poppins shadow-xl rounded-lg rounded-t-md'>
+                                    <li className='pt-2 pb-3 hover:bg-orange-100 hover:rounded-sm'>Profile</li>
+                                    <hr className='rounded-md' />
+                                    <li className='pt-2 pb-3 hover:bg-orange-100 hover:rounded-sm'>Logout</li>
+                                    <li></li>
+                                </ul>
+                                </button>
+                            </div>
+                        </ul>
                     </div>
                 </div>
-
-                <Transition
-                    show={isOpen}
-                    enter="transition ease-out duration-100 transform"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="transition ease-in duration-75 transform"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                >
-                    {(ref) => (
-                        <div className="md:hidden" id="mobile-menu">
-                            <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                                <a
-                                    href="#"
-                                    className="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
-                                >
-                                    Dashboard
-                                </a>
-
-                                <a
-                                    href="#"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                                >
-                                    Team
-                                </a>
-
-                                <a
-                                    href="#"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                                >
-                                    Projects
-                                </a>
-
-                                <a
-                                    href="#"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                                >
-                                    Calendar
-                                </a>
-
-                                <a
-                                    href="#"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                                >
-                                    Reports
-                                </a>
-                            </div>
-                        </div>
-                    )}
-                </Transition>
-            </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            </navbar>
+            <sidebar>
+                <div className='flex w-[100px] lg:w-[250px] h-screen lg:h-screen my-5 lg:my-[50px]  shadow-2xl absolute'>
+                        <ul className='text-black text-xl'>
+                            <li className='mt-10 ml-10  lg:mt-10 lg:mb-10 lg:ml-10  lg:flex font-sans w-[200px]  text-sm  text-orange-500 invisible lg:visible'><AiOutlineHome className='text-2xl mr-2 mt-[-3px] !visible md:lg:visible'/>Home</li>
+                            <li className='ml-7 lg:ml-10 text-xl font-mono'>Main</li>
+                            <li className='mt-10 ml-10 mb-10 lg:mt-10 lg:b-10 lg:ml-10  flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'><FaNetworkWired className='text-2xl mr-2 mt-[-5px] visible md:lg:visible'/>   Community</li>
+                            <li className='mt-10 ml-10 mb-10 lg:mt-10 lg:mb-10 lg:ml-10  flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'><HiOutlineUserGroup className='text-2xl mr-2 mt-[-5px] !visible md:lg:visible'/> Members</li>
+                            <li className='mt-10 ml-10 mb-10 lg:mt-10 lg:mb-10 lg:ml-10  flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'><GiNewspaper className='text-2xl mr-2 mt-[-5px] !visible md:lg:visible'/> News</li>
+                            <li className='mt-10 ml-10 mb-10 lg:mt-10 lg:mb-10 lg:ml-10  flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'><MdOutlineLiveTv className='text-2xl mr-2 mt-[-5px] !visible md:lg:visible'/> Streams</li>
+                            <li className='ml-2 lg:ml-10  text-lg font-mono lg-pl-4 lg:text-xl'>Accounts</li>
+                            <li className='mt-10 ml-10  lg:mt-10 lg:mb-10 lg:ml-10 flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'><GrGroup className='text-2xl mr-2 mt-[-5px] !visible md:lg:visible'/> My Group</li>
+                            <li className='mt-10 ml-10 mb-10 lg:mt-10 lg:mb-10 lg:ml-10 flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'> <BsChatLeft className='text-2xl mr-2 mt-[-2px] !visible md:lg:visible'/> Chat</li>
+                            <li className='mt-10 ml-10 mb-10 lg:mt-10 lg:mb-10 lg:ml-10 flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'><TiGroupOutline className='text-2xl mr-2 mt-[-5px] !visible md:lg:visible'/> Friends</li>
+                            <li className='mt-10 ml-10 mb-10 lg:mt-10 lg:mb-10 lg:ml-10 flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'><CgProfile className='text-2xl mr-2 mt-[-5px] !visible md:lg:visible'/> Profile</li>
+                        </ul>
+                </div>
+            </sidebar>
         </div>
-
-
     )
 }
 

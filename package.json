@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/itsmevizz/Gaming_Community/issues"
   },
-  "homepage": "https://github.com/itsmevizz/Gaming_Community#readme"
+  "homepage": "https://github.com/itsmevizz/Gaming_Community#readme",
+  "dependencies": {
+    "mongoose": "^6.4.4",
+    "tailwind-scrollbar-hide": "^1.1.7"
+  }
 }
