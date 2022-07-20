@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import {AiOutlineHome} from 'react-icons/ai'
-import {CgProfile} from 'react-icons/cg'
-import {GrGroup} from 'react-icons/gr'
-import {BsChatLeft} from 'react-icons/bs'
-import {TiGroupOutline} from 'react-icons/ti'
-import {HiOutlineUserGroup} from 'react-icons/hi'
-import {FaNetworkWired} from "react-icons/fa"
-import {GiNewspaper} from "react-icons/gi"
-import {MdOutlineLiveTv} from "react-icons/md"
+import React, { useEffect, useState } from 'react'
 import {SiGooglemessages} from "react-icons/si"
+import { Navigate, useNavigate } from 'react-router-dom'
 function HomeNavBar() {
+    const Navigation = useNavigate()
     const  [dropdown, setDropDown] = useState(false)
+    const user = localStorage.getItem("usedData")
+    const data = JSON.parse(user)
+    useEffect(()=>{
+        if(!user){
+            Navigation('/login')
+          }
+    })
     return (
         <div>
-            <navbar>
-                <div className='flex h-10' >
+            <div>
+                <div className='flex h-10 w-[100%] select-none' > 
                     <div className='flex'>
                     <div className='lg:ml-8 mt-10 text-3xl font-poppins font-bold mr-[50px] invisible lg:visible ml-[-250px]'>TEAMHOST</div>
                     </div>
@@ -28,12 +28,16 @@ function HomeNavBar() {
                             <button className='text-center block' onClick={()=>dropdown?setDropDown(false):setDropDown(true)}>
                                 <img className='w-9 rounded-full ' src="/Image/img_avatar.png" alt="Profile" />
                             </button>
+                            <p className='grid place-content-center ml-2'>{data?data.name:""}</p>
                             <div className={dropdown? 'absolute mt-[60px] mx-[-30px] text-center':"hidden"}>
                                 <button>
                                 <ul className='w-[100px] h-auto bg-slate-50 font-poppins shadow-xl rounded-lg rounded-t-md'>
                                     <li className='pt-2 pb-3 hover:bg-orange-100 hover:rounded-sm'>Profile</li>
                                     <hr className='rounded-md' />
-                                    <li className='pt-2 pb-3 hover:bg-orange-100 hover:rounded-sm'>Logout</li>
+                                    <li className='pt-2 pb-3 hover:bg-orange-100 hover:rounded-sm' onClick={()=>{
+                                        localStorage.clear("usedData")
+                                        Navigation('/login')
+                                    }}>Logout</li>
                                     <li></li>
                                 </ul>
                                 </button>
@@ -41,8 +45,8 @@ function HomeNavBar() {
                         </ul>
                     </div>
                 </div>
-            </navbar>
-            <sidebar>
+            </div>
+            {/* <sidebar>
                 <div className='flex w-[100px] lg:w-[250px] h-screen lg:h-screen my-5 lg:my-[50px]  shadow-2xl absolute'>
                         <ul className='text-black text-xl'>
                             <li className='mt-10 ml-10  lg:mt-10 lg:mb-10 lg:ml-10  lg:flex font-sans w-[200px]  text-sm  text-orange-500 invisible lg:visible'><AiOutlineHome className='text-2xl mr-2 mt-[-3px] !visible md:lg:visible'/>Home</li>
@@ -58,7 +62,7 @@ function HomeNavBar() {
                             <li className='mt-10 ml-10 mb-10 lg:mt-10 lg:mb-10 lg:ml-10 flex font-sans w-[200px] text-sm invisible lg:visible cursor-pointer'><CgProfile className='text-2xl mr-2 mt-[-5px] !visible md:lg:visible'/> Profile</li>
                         </ul>
                 </div>
-            </sidebar>
+            </sidebar> */}
         </div>
     )
 }

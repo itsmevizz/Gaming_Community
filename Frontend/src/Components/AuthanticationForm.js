@@ -1,14 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../index.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import Dark from "./darkMode";
 
 function AuthanticationForm() {
+  const navigation = useNavigate()
   const [isPasswordShow, setPasswordShow] = useState(true);
   const inputRef = useRef();
   const userData = localStorage.getItem("usedData");
   useEffect(() => {
+    if(userData){
+      navigation('/')
+    }
     inputRef.current.focus();
     document.title = "Login";
   }, [userData]);
@@ -59,7 +63,7 @@ function AuthanticationForm() {
       })
         .then(async (data) => {
           localStorage.setItem("usedData", JSON.stringify(data.data));
-          // navigate('/')
+          navigation('/')
         })
         .catch((err) => {
           setError(err.response.data.message);
@@ -76,7 +80,7 @@ function AuthanticationForm() {
   return (
     <div className="">
       <div
-        class="h-full bg-cover bg-center lg:h-screen lg:flex lg:w-full "
+        class="max-h-full h-full bg-cover bg-center lg:h-screen lg:flex lg:w-full overflow-hidden "
         style={{ backgroundImage: `url("../Image/bg-first-screen.jpg")` }}
       >
         <div className="pt-1 m-auto ">
@@ -92,7 +96,7 @@ function AuthanticationForm() {
             </div>
           </div>
         </div>
-        <div className="pb-[60px] lg:mr-10 overflow-hidden">
+        <div className="pb-[60px] lg:mr-10 ">
           <div className="shadow-lg box-border content-center relative w-full max-w-[530px] rounded-xl bg-white my-40 mx-auto lg:mx- dark:bg-[#0c1826]">
             {error?<div className="text-center p-2 w-full h-10 bg-red-600 rounded-xl rounded-b-md opacity-70 " ><p className=" text-white font-mono font-semibold">{error}</p></div> : ""}
             <h1 className=" pt-[55px] text-orange-400  flex justify-center leading-relaxed font-bold dark:text-[#d6d6d6] text-3xl font-adelia text-center">
