@@ -32,9 +32,6 @@ function HomeSidePannel() {
         </div>
       </div>
         <div>
-        <div className='w-4/5 left-[12%] my-72 lg:left-[16%] ml-9  absolute'>
-          <CommunityCard/>
-        </div>
         </div>
     </div>
   )

@@ -4,13 +4,12 @@ function CommunityCard(props) {
   console.log(props.values);
   return (
     <div className={``}>
-      
         <div className="flex flex-wrap m-3">
           <div className="w-full sm:w-1/2 md:w-1/4 flex flex-col p-3">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
               <div
                 className="bg-cover bg-center h-60"
-                style={{ backgroundImage: `url("../Image/10927348.jpg")` }}
+                style={{ backgroundImage: `url("../Image/5c443b39f87cd3b4520ef78679a3eb957d1eae2d_the-witcher-2019-most-beautiful-games.avif")` }}
               ></div>
               <div className="p-4 flex-1 flex flex-col">
                 <div className=" justify-around grid grid-cols-2 place-content-center text-center mb-5">
@@ -62,7 +61,7 @@ function CommunityCard(props) {
             <div className="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
               <div
                 className="bg-cover bg-center h-60"
-                style={{ backgroundImage: `url("../Image/10927348.jpg")` }}
+                style={{ backgroundImage: `url("../Image/wp2637598.jpg")` }}
               ></div>
               <div className="p-4 flex-1 flex flex-col">
                 <div className=" justify-around grid grid-cols-2 place-content-center text-center mb-5">
@@ -88,7 +87,7 @@ function CommunityCard(props) {
             <div className="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
               <div
                 className="bg-cover bg-center h-60"
-                style={{ backgroundImage: `url("../Image/10927348.jpg")` }}
+                style={{ backgroundImage: `url("../Image/ekLR4no6adtCNHNuLV3cc3.jpg")` }}
               ></div>
               <div className="p-4 flex-1 flex flex-col">
                 <div className=" justify-around grid grid-cols-2 place-content-center text-center mb-5">

@@ -1,23 +1,23 @@
-import React, { Fragment, useEffect, useState } from "react";
 
 function Carousel(props) {
-  console.log(props);
   return (
     <div>
-      <div className={` w-[60%] md:w-2/3 lg:w-2/5 flex flex-col left-[50%]  lg:left-[16%] mx-32 sm:mx-36 md:mx-44 lg:mx-[20%] mt-16`}>
+      <div className={`${props.values}`}>
+       
         <div
           id="carouselExampleInterval"
           className="carousel slide "
           data-bs-ride="carousel"
         >
+           <h1 className="font-mono font-medium  text-sm lg:text-xl relative uppercase ml-3">Recomented Events</h1>
           <div className="carousel-inner rounded-2xl relative">
             <div
-              className="carousel-item active bg-cover bg-center h-60"
+              className="carousel-item active bg-cover bg-top h-60  "
               data-bs-interval="10000"
               style={{ backgroundImage: `url("../Image/10927348.jpg")` }}
             ></div>
             <div
-              className="carousel-item bg-cover bg-center h-60"
+              className="carousel-item bg-cover bg-top h-60"
               data-bs-interval="2000"
               style={{ backgroundImage: `url("../Image/c2c4e-16091660830969-800.avif")` }}
               ></div>

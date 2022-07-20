@@ -22,18 +22,17 @@ function HomeNavBar() {
                     <div><input className='max-w-[400px] w-full h-11 ml-2 lg:ml-14 lg:w-[400px] pl-5 rounded-md bg-gray-200' type="search" placeholder='Search' /> </div>
                         <ul className='flex mr-3 lg:mr-9 content-center'>
                             <div className='flex cursor-pointer'>
-                            <SiGooglemessages className='text-center m-2 mt-4 mr-5 text-2xl'/>
+                            <SiGooglemessages className='text-center text-gray-400 m-2 mt-4 mr-5 text-2xl'/>
                             <div className='w-5 h-5 bg-red-500 rounded-full absolute mt-6 ml-5 text-center text-white text-sm font-poppins'> 50 </div>
                             </div>
                             <button className='text-center block' onClick={()=>dropdown?setDropDown(false):setDropDown(true)}>
                                 <img className='w-9 rounded-full ' src="/Image/img_avatar.png" alt="Profile" />
                             </button>
                             <p className='grid place-content-center ml-2'>{data?data.name:""}</p>
-                            <div className={dropdown? 'absolute mt-[60px] mx-[-30px] text-center':"hidden"}>
+                            <div className={dropdown? 'absolute mt-[60px] mx-[-30px] text-center ':"hidden"}>
                                 <button>
                                 <ul className='w-[100px] h-auto bg-slate-50 font-poppins shadow-xl rounded-lg rounded-t-md'>
-                                    <li className='pt-2 pb-3 hover:bg-orange-100 hover:rounded-sm'>Profile</li>
-                                    <hr className='rounded-md' />
+                                    {/* <li className='pt-2 pb-3 hover:bg-orange-100 hover:rounded-sm'>Profile</li> */}
                                     <li className='pt-2 pb-3 hover:bg-orange-100 hover:rounded-sm' onClick={()=>{
                                         localStorage.clear("usedData")
                                         Navigation('/login')
