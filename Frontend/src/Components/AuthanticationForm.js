@@ -1,30 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../index.css";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"
+import { login } from "../redux/features/authSlice";
 // import Dark from "./darkMode";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useDispatch, useSelector} from "react-redux"
-import { login } from "../redux/features/authSlice";
 
 function AuthanticationForm() {
   const navigation = useNavigate()
-  const dispatch = useDispatch
-  const [isPasswordShow, setPasswordShow] = useState(true);
-  const inputRef = useRef();
-  const userData = localStorage.getItem("usedData");
+  const userData = localStorage.getItem("user");
+  const {loading,error} = useSelector((state)=>({...state.auth}))
   useEffect(() => {
-    if (userData) {
-      navigation('/')
-    }
+    // if (userData) {
+    //   navigation('/')
+    // }
     inputRef.current.focus();
     document.title = "Login";
-  }, [userData]);
-
+    error && alert(error)
+  }, [navigation, userData, error]);
+  const dispatch = useDispatch()
+  const [isPasswordShow, setPasswordShow] = useState(true);
+  const inputRef = useRef();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
   const [emailErr, serEmailErr] = useState("");
   const [passErr, setPassErr] = useState(" ");
 
@@ -53,31 +52,7 @@ function AuthanticationForm() {
       validEmail();
       validPassword();
     } else {
-      dispatch(login, )
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      await axios({
-        method: "post",
-        url: "/login",
-        data: {
-          email,
-          password,
-        }
-      })
-        .then(async (data) => {
-          localStorage.setItem("usedData", JSON.stringify(data.data));
-          navigation('/')
-        })
-        .catch((err) => {
-          setError(err.response.data.message);
-          toast.error(err.response.data.message);
-          setTimeout(() => {
-            setError(false);
-          }, 3000);
-        });
+      dispatch(login({ email, password, navigation, toast }))
     }
   };
   const showPass = () => {
@@ -86,17 +61,6 @@ function AuthanticationForm() {
 
   return (
     <div className="">
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover={false}
-      />
       <div
         class="max-h-full h-full bg-cover bg-center lg:h-screen lg:flex lg:w-full overflow-hidden "
         style={{ backgroundImage: `url("../Image/bg-first-screen.jpg")` }}

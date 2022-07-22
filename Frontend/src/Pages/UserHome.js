@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Carousel from '../Components/Carousel'
 import CommunityCard from '../Components/CommunityCard'
 import HomeNavBar from '../Components/HomeNavBar'
@@ -6,7 +7,12 @@ import HomeSidePannel from '../Components/HomeSidePannel'
 import NewsArchive from '../Components/NewsArchive'
 
 function UserHome() {
+  const Navigation = useNavigate()
+  const user = localStorage.getItem('user')
   useEffect(()=>{
+    if (!user) {
+        Navigation('/login')
+    }
    document.title = "Home";
   },[])
   return (

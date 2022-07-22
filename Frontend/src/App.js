@@ -9,7 +9,6 @@ import Home from "./Pages/UserHome";
 import Login from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignupPage";
 function App() {
-  const user = localStorage.getItem('usedData')
   return (
     <div>
       <Router>

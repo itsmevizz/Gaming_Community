@@ -122,7 +122,7 @@ function AuthanticationForm() {
           </div>
         </div>
         <div className="pb-10 lg:mr-10 ">
-          <div className= {`${successBorder} shadow-lg box-border content-center relative w-full max-w-[530px] rounded-xl bg-white my-40 mx-auto lg:mx- dark:bg-[#0c1826]`}>
+          <div className= {`${successBorder} shadow-lg box-border content-center relative w-full max-w-[530px] rounded-xl bg-white my-28   mx-auto lg:mx- dark:bg-[#0c1826]`}>
           {success?<div className="text-center p-2 w-full h-10 bg-green-600 rounded-xl rounded-b-md opacity-70" ><p className=" text-white font-mono font-semibold">{success}</p></div> : ""}
           {error?<div  className="text-center p-2 w-full h-10 bg-red-600 rounded-xl rounded-b-md opacity-70 " ><p className=" text-white font-mono font-semibold">{error}</p></div> : ""}
             <h1 className=" pt-[55px] text-orange-400  flex justify-center leading-relaxed font-bold dark:text-[#d6d6d6] text-3xl font-adelia text-center">

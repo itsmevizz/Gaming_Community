@@ -6,11 +6,6 @@ function HomeNavBar() {
     const [dropdown, setDropDown] = useState(false)
     const user = localStorage.getItem("usedData")
     const data = JSON.parse(user)
-    useEffect(() => {
-        if (!user) {
-            Navigation('/login')
-        }
-    })
     return (
         <div>
             <div>
