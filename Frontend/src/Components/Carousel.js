@@ -1,19 +1,19 @@
 
 function Carousel(props) {
   return (
-    <div>
+    <div >
       <div className={`${props.values}`}>
        
         <div
           id="carouselExampleInterval"
-          className="carousel slide "
+          className="carousel slide position-relative"
           data-bs-ride="carousel"
         >
-           <h1 className="font-mono font-medium  text-sm lg:text-xl relative uppercase ml-3">Recomented Events</h1>
-          <div className="carousel-inner rounded-2xl relative">
+           <h1 className="font-mono font-medium  text-sm lg:text-xl  uppercase ml-3 ">Recomented Events</h1>
+          <div className="carousel-inner rounded-2xl">
             <div
               className="carousel-item active bg-cover bg-top h-60  "
-              data-bs-interval="10000"
+              data-bs-interval="3000"
               style={{ backgroundImage: `url("../Image/10927348.jpg")` }}
             ></div>
             <div
