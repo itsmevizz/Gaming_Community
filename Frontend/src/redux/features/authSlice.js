@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from "../api"
 
-export const login = createAsyncThunk('auth/login', async ({ email, password, navigation, toast }, {rejectWithValue}) => {
+export const login = createAsyncThunk('auth/login', async ({ email, password, navigation, toast }, { rejectWithValue }) => {
     try {
         const response = await api.signin({ email, password })
         toast.success("Login Successfull")
         navigation('/')
         return response.data
     } catch (err) {
-        rejectWithValue(err.response.data)
+        return rejectWithValue(err.response.data)
     }
 })
 
@@ -25,13 +25,13 @@ const authSlice = createSlice({
         },
         [login.fulfilled]: (state, action) => {
             state.loading = false
-            localStorage.setItem("user", JSON.stringify({ ...action.payload }))
-            state.user = action.payload
+            console.log(action.payload);
+            state.user = action.payload.token
         },
         [login.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload.message
-        }
+        },
     }
 })
 

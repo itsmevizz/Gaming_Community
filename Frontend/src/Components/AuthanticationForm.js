@@ -3,21 +3,22 @@ import "../index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { login } from "../redux/features/authSlice";
-// import Dark from "./darkMode";
+import Dark from "./darkButton";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function AuthanticationForm() {
+  const { value } = useSelector((state) => state.dark)
   const navigation = useNavigate()
   const userData = localStorage.getItem("user");
-  const {loading,error} = useSelector((state)=>({...state.auth}))
+  const { loading, error } = useSelector((state) => ({ ...state.auth }))
   useEffect(() => {
     // if (userData) {
     //   navigation('/')
     // }
     inputRef.current.focus();
     document.title = "Login";
-    error && alert(error)
+    error && toast.error(error)
   }, [navigation, userData, error]);
   const dispatch = useDispatch()
   const [isPasswordShow, setPasswordShow] = useState(true);
@@ -60,7 +61,19 @@ function AuthanticationForm() {
   };
 
   return (
-    <div className="">
+    <div className={`${value}`}>
+      <Dark value={'shadow-sm right-16 bottom-10 fixed '} />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+      />
       <div
         class="max-h-full h-full bg-cover bg-center lg:h-screen lg:flex lg:w-full overflow-hidden "
         style={{ backgroundImage: `url("../Image/bg-first-screen.jpg")` }}
@@ -80,7 +93,6 @@ function AuthanticationForm() {
         </div>
         <div className="pb-[60px] lg:mr-10 ">
           <div className="shadow-lg box-border content-center relative w-full max-w-[530px] rounded-xl bg-white my-28 mx-auto lg:mx- dark:bg-[#0c1826]">
-            {error ? <div className="text-center p-2 w-full h-10 bg-red-600 rounded-xl rounded-b-md opacity-70 " ><p className=" text-white font-mono font-semibold">{error}</p></div> : ""}
             <h1 className=" pt-[55px] text-orange-400  flex justify-center leading-relaxed font-bold dark:text-[#d6d6d6] text-3xl font-adelia text-center">
               Login
             </h1>
@@ -152,11 +164,11 @@ function AuthanticationForm() {
                   />
 
                   <label
-                    for="checked-toggle"
+                    for="checked"
                     class="inline-flex absolute mt-4 mx-[-50px] items-center cursor-pointer"
                   >
                     <input
-                      id="checked-toggle"
+                      id="checked"
                       type="checkbox"
                       class="sr-only peer"
                       onClick={showPass}

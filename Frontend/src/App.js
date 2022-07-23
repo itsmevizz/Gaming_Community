@@ -8,6 +8,7 @@ import "./App.css";
 import Home from "./Pages/UserHome";
 import Login from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignupPage";
+import Community from './Pages/Community'
 function App() {
   return (
     <div>
@@ -27,6 +28,10 @@ function App() {
             path="/Signup"
             // element={user ? <Navigate replace to="/" /> : <SignUpPage />}
             element={<SignUpPage/>}
+          />
+          <Route 
+          path="/community" 
+          element={<Community/>}
           />
         </Routes>
       </Router>

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/itsmevizz/Gaming_Community#readme",
   "dependencies": {
     "mongoose": "^6.4.4",
+    "redux-persist": "^6.0.0",
     "tailwind-scrollbar-hide": "^1.1.7"
   }
 }
