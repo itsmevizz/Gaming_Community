@@ -23,6 +23,7 @@ function NewsArchive(props) {
           <div className="carousel-inner">
             {img.map((item, index) => {
               return (
+                
                 <div
                   key={index}
                   className={`carousel-item bg-cover bg-right ${

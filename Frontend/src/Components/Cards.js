@@ -22,19 +22,29 @@ function CommunityCard(props) {
                   style={{ backgroundImage: `${url.img}` }}
                 ></div>
                 <div className="p-4 flex-1 flex flex-col">
-                  <div className=" justify-around grid grid-cols-2 place-content-center text-center mb-1">
-                    <div>
-                      50
-                      <p className="text-xs lg:text-base">Members</p>
-                    </div>
-                    <div>
-                      50
-                      <p className="text-xs lg:text-base">Online</p>
-                    </div>
+                  <div className={` justify-around grid ${props.members? "grid-cols-1" : "grid-cols-2"  } place-content-center text-center mb-1`}>
+                    {props.members ?
+                      <div>
+                        50
+                        <p className="text-xs lg:text-base">Followers</p>
+                      </div>
+                     :
+                      <>
+                        <div>
+                          50
+                          <p className="text-xs lg:text-base">Members</p>
+                        </div>
+                        <div>
+                          50
+                          <p className="text-xs lg:text-base">Online</p>
+                        </div>
+                      </>
+                    }
+
                   </div>
                   <div className="border-t text-center grid place-items-center">
                     <button className="w-full sm:w-1/2 md:w-1/2 h-10 mt-4 uppercase text-white bg-orange-500 rounded-3xl font-poppins text-xs lg:text-sm font-medium transition hover:shadow-lg hover:scale-105  hover:text-red-200 hover:duration-700 ease-in-out  ">
-                      Join Group
+                      {props.members? "Follow" : "Join Group"} 
                     </button>
                   </div>
                 </div>

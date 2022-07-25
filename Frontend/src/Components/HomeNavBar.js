@@ -8,9 +8,9 @@ function HomeNavBar() {
     const data = JSON.parse(user)
     return (
         <div>
-            <div>
-                <div className='flex bg-white w-full  h-[50px]  ' >
-                    <div className='flex fixed-top  bg-white pt-1  shadow lg:shadow-xl justify-between w-full lg:ml-[250px] duration-200 '>
+            <div className=''>
+                <div className='flex bg-white w-full  h-[50px]  dark:bg-[#1a2634] dark:text-white' >
+                    <div className='flex fixed-top  bg-white pt-1  shadow lg:shadow-xl justify-between w-full lg:ml-[250px] duration-200  dark:bg-[#1a2634] dark:text-white'>
                         <input className='max-w-[400px] w-32 h-11 lg:w-[400px] pl-5 ml-5 rounded-md bg-gray-200' type="search" placeholder='Search' /> 
                         <ul className='flex mr-14 lg:mr-[300px] content-center'>
                             <div className='flex cursor-pointer'>

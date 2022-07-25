@@ -8,7 +8,10 @@ import "./App.css";
 import Home from "./Pages/UserHome";
 import Login from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignupPage";
-import Community from './Pages/Community'
+import Community from "./Pages/Community";
+import Members from "./Pages/Members";
+import News from "./Pages/News";
+import Streams from "./Pages/Streams";
 function App() {
   return (
     <div>
@@ -17,22 +20,22 @@ function App() {
           <Route
             path="/"
             // element={user ? <Home /> : <Navigate replace to="/Login" />}
-            element={<Home/>}
+            element={<Home />}
           />
           <Route
             path="/Login"
             // element={user ? <Navigate replace to="/" /> : <Login />}
-            element = {<Login/>}
+            element={<Login />}
           />
           <Route
             path="/Signup"
             // element={user ? <Navigate replace to="/" /> : <SignUpPage />}
-            element={<SignUpPage/>}
+            element={<SignUpPage />}
           />
-          <Route 
-          path="/community" 
-          element={<Community/>}
-          />
+          <Route path="/community" element={<Community />} />
+          <Route path="/Members" element={<Members />} />
+          <Route path="/News" element={<News />} />
+          <Route path="/Streams" element={<Streams />} />
         </Routes>
       </Router>
     </div>
