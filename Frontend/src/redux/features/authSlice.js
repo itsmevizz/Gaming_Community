@@ -12,6 +12,17 @@ export const login = createAsyncThunk('auth/login', async ({ email, password, na
     }
 })
 
+
+export const ValidateToken = createAsyncThunk('auth/validateToken', async (token, { rejectWithValue }) => {
+    try {
+        const response = await api.ValidateToken(token)
+        console.log(response,'fine');
+        return response.data
+    } catch (err) {
+        return rejectWithValue(err.response.data)
+    }
+})
+
 const authSlice = createSlice({
     name: "auth",
     initialState: {
@@ -25,13 +36,26 @@ const authSlice = createSlice({
         },
         [login.fulfilled]: (state, action) => {
             state.loading = false
-            console.log(action.payload);
-            state.user = action.payload.token
+            state.user = action.payload
+            localStorage.setItem("Token", action.payload.token)
         },
         [login.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload.message
         },
+        [ValidateToken.pending]:(state, action)=>{
+            state.loading= true
+        },
+        [ValidateToken.fulfilled]:(state, action)=>{
+            state.loading = false
+            state.user = action.payload
+            console.log(state.user,"Hi user");
+        },
+        [ValidateToken.rejected]:(state, action)=>{
+            state.loading = false
+            state.user = null
+            state.error = action.payload.message
+        }
     }
 })
 

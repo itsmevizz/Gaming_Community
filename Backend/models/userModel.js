@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema(
             type:Boolean,
             required:true,
             default:true,
+        },
+        ChatId:{
+            type:String,
+            require:false,
         }
     },
     {

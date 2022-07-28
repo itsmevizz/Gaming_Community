@@ -15,19 +15,19 @@ function Streams() {
     ];
 
     return (
-        <div className='w-[80%] mx-28 lg:mx-72'>
-            <div class=" p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-5">
+        <div className='w-[80%] mx-20 lg:mx-72'>
+            <div class=" p-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-5">
                 {img.map((item, key) => {
                     return (
                         <div key={key} class="rounded overflow-hidden shadow-lg cursor-pointer select-none">
                             <div className='absolute text-white text-sm bg-opacity-90 w-auto pl-1 pr-1 text-center grid place-content-center m-2 h-5 rounded bg-red-600'>
                                 Live
                             </div>
-                            <img class="w-full" src="../Image/ekLR4no6adtCNHNuLV3cc3.jpg"  alt="Mountain" />
+                            <img class="w-full" src="../Image/ekLR4no6adtCNHNuLV3cc3.jpg" alt="Live" />
                             <div class="px-1 py-2">
                                 <div class="font-bold text-sm mb-2">Grand Theft Auto V</div>
                                 <p class="text-gray-700 text-base">
-                                    
+
                                 </p>
                             </div>
                             <div class="px-1 pt-1 pb-2">

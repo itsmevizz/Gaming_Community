@@ -11,11 +11,12 @@ function UserHome() {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const Navigation = useNavigate()
   useEffect(() => {
+    console.log(user, "This is user");
     if (!user) {
-      Navigation('/login')
+      // Navigation('/login')
     }
     document.title = "Home";
-  }, [user, Navigation])
+  })
   return (
     <div className='select-none'>
       <HomeNavBar />

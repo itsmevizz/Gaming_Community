@@ -19,10 +19,10 @@ function HomeSidePannel() {
     { title: "Streams", icon: <MdOutlineLiveTv />, link: "/Streams" },
   ];
   const Account = [
-    { title: "My Group", icon: <GrGroup /> },
-    { title: "Chat", icon: <BsChatLeft /> },
-    { title: "Friends", icon: <TiGroupOutline /> },
-    { title: "Profile", icon: <CgProfile /> },
+    { title: "My Group", icon: <GrGroup />, link: "/MyGroup" },
+    { title: "Chat", icon: <BsChatLeft />, link: "/Chat" },
+    // { title: "Friends", icon: <TiGroupOutline />, link: "/Friends" },
+    { title: "Profile", icon: <CgProfile />, link: '/Profile' },
   ];
 
   const Goto = (link) => {
@@ -56,8 +56,8 @@ function HomeSidePannel() {
                 >
                   <li
                     className={`${window.location.pathname === value.link
-                        ? " h-12 lg:w-[240px] bg-orange-300 rounded-full rounded-l-none bottom-0 lg:border-l-8 border-orange-500 lg:pt-3 lg:pl-7  dark:text-white"
-                        : " dark:text-white "
+                      ? " h-12 lg:w-[240px] bg-orange-300 rounded-full rounded-l-none bottom-0 lg:border-l-8 border-orange-500 lg:pt-3 lg:pl-7  dark:text-white"
+                      : " dark:text-white "
                       } ${window.location.pathname === value.link
                         ? ""
                         : "lg:ml-8 pt-2"
@@ -65,8 +65,8 @@ function HomeSidePannel() {
                   >
                     <span
                       className={`text-2xl mr-2 mt-[-5px] ml-8 lg:ml-0 visible md:lg:visible ${window.location.pathname === value.link
-                          ? "w-10 lg:w-6 text-orange-600 lg:text-orange-500 lg:h-0 h-10 pt-2 lg:pt-0 lg:pl-0 pl-2  bg-orange-300"
-                          : ""
+                        ? "w-10 lg:w-6 text-orange-600 lg:text-orange-500 lg:h-0 h-10 pt-2 lg:pt-0 lg:pl-0 pl-2  bg-orange-300"
+                        : ""
                         } ${value.select ? "" : " pl-2"
                         } lg:bg-inherit lg:rounded-none  rounded-full`}
                     >
@@ -84,19 +84,26 @@ function HomeSidePannel() {
               return (
                 <div
                   key={index}
-                  className={`${!value.select &&
-                    " w-[240px] hover:bg-orange-300 hover:rounded-full hover:rounded-l-none hover:h-12 hover:mb-2 hover:pt-2 duration-200 dark:hover:bg-orange-500"
-                    }`}
+                  className={
+                    window.location.pathname === value.link
+                      ? ""
+                      : " w-[240px] hover:bg-orange-300 hover:rounded-full hover:rounded-l-none hover:h-12 hover:mb-2 hover:pt-2 duration-200 dark:hover:bg-orange-500"
+                  }
+                  onClick={() => Goto(value.link)}
                 >
                   <li
-                    className={`${value.select &&
-                      " h-12 lg:w-[200px] bg-orange-300 rounded-full rounded-l-none bottom-0 lg:border-l-8 border-orange-500 lg:pt-4 lg:pl-7 "
-                      } ${value.select ? "" : "lg:ml-8 pt-2 dark:text-white"
-                      }  mb-6  flex font-sans text-sm invisible hover:text-orange-400 duration-300 lg:visible cursor-pointer `}
+                    className={`${window.location.pathname === value.link
+                      ? " h-12 lg:w-[240px] bg-orange-300 rounded-full rounded-l-none bottom-0 lg:border-l-8 border-orange-500 lg:pt-4 lg:pl-8  dark:text-white"
+                      : " dark:text-white "
+                      } ${window.location.pathname === value.link
+                        ? ""
+                        : "lg:ml-8 pt-2"
+                      }  mb-5  flex font-sans text-sm invisible hover:text-orange-400 duration-300 lg:visible cursor-pointer`}
                   >
                     <span
-                      className={`text-2xl mr-2 mt-[-5px] ml-8 lg:ml-0 visible md:lg:visible ${value.select &&
-                        "w-10 lg:w-6 text-orange-600 lg:text-orange-500 lg:h-0 h-10 pt-2 lg:pt-0 lg:pl-0 pl-2  bg-orange-300"
+                      className={`text-2xl mr-2 mt-[-5px] ml-8 lg:ml-0 visible md:lg:visible ${window.location.pathname === value.link
+                        ? "w-10 lg:w-6 text-orange-600 lg:text-orange-500 lg:h-0 h-10 pt-2 lg:pt-0 lg:pl-0 pl-2  bg-orange-300"
+                        : ""
                         } ${value.select ? "" : " pl-2"
                         } lg:bg-inherit lg:rounded-none  rounded-full`}
                     >

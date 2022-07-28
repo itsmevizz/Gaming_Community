@@ -12,7 +12,7 @@ function Members() {
         <div className=" font-mono font-semibold text-xl pl-8 -mb-1 mt-5">
           Members Directory
         </div>
-        <CommunityCard members={"Hi"}/>
+        <CommunityCard members={true} />
       </div>
     </div>
   );

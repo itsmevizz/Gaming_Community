@@ -1,8 +1,9 @@
-const { response } = require('express');
-const asyncHandler = require('express-async-handler')
+const { response, json } = require('express');
+const asyncHandler = require('express-async-handler');
+const { base } = require('../models/userModel');
 const user = require("../models/userModel");
 const generateToken = require('../utils/genarateToken')
-const objectId = require("mongodb").ObjectId;
+var jwt = require('jsonwebtoken');
 
 module.exports = {
   registerUser: asyncHandler(async (req, res, next) => {
@@ -35,12 +36,21 @@ module.exports = {
     }
   }),
 
+  userInfo: asyncHandler(async (req, res) => {
+    const token = req.headers['token']
+    const { id } = jwt.decode(token)
+    const User = await user.findOne({ id })
+    console.log(User);
+    res.json({
+      _id: User._id,
+      name: User.name,
+    })
+
+  }),
+
   authUser: asyncHandler(async (req, res) => {
     const { email, password } = req.body
     const User = await user.findOne({ email })
-
-    console.log(User);
-
     const checkStatus = () => {
       if (User.status) {
         return true
@@ -55,10 +65,10 @@ module.exports = {
         name: User.name,
         token: generateToken(User._id)
       })
-      console.log({ token: generateToken(User._id) });
+      // console.log({ token: generateToken(User._id) });
     } else {
       // throw new Error('Invalid Email or Password...!')
-      return res.status(404).json({message:'Invalid Email or Password...!'})
+      return res.status(404).json({ message: 'Invalid Email or Password...!' })
     }
 
   }),
