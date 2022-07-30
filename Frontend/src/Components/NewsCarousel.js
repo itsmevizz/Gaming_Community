@@ -1,6 +1,31 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 function NewsArchive(props) {
+  const [news, setNews] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const newsapi = async () => {
+    try {
+      const news = await axios({
+        url: "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=05fd9314133f42ffbcce9e0d73a4b885"
+      })
+        .then((data) => {
+          const content = data.data.articles.slice(0, 1).map((active)=>{
+            // active[0].active = true
+            console.log(active);
+          })
+          setNews(data.data.articles)
+        })
+      setLoading(true)
+    } catch (err) {
+
+    }
+  }
+  useEffect(() => {
+    newsapi()
+  }, [])
+
   const img = [
     {
       img: `url("../Image/fortnite-screen-ps4-24may17-cfbc1.webp")`,
@@ -21,20 +46,19 @@ function NewsArchive(props) {
             News Archive
           </h1>
           <div className="carousel-inner">
-            {img.map((item, index) => {
+            {news.map((item, index) => {
               return (
-                
+
                 <div
                   key={index}
-                  className={`carousel-item bg-cover bg-right ${
-                    item.active ? "active" : ""
-                  } `}
+                  className={`carousel-item bg-cover bg-right ${item.active ? "active" : ""
+                    } `}
                   data-bs-interval="3000"
                 >
                   <div class="max-w-xl w-full lg:max-w-full lg:flex ">
                     <div
                       class="h-56 lg:w-72 flex-none bg-cover bg-right rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-                      style={{ backgroundImage: `${item.img}` }}
+                      style={{ backgroundImage: `url(${item.urlToImage})` }}
                       title="Woman holding a mug"
                     ></div>
                     <div class="border-r h-56 border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
