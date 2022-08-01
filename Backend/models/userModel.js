@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema(
         },
         ChatId:{
             type:String,
-            require:false,
+            required:false,
         }
     },
     {

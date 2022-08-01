@@ -6,6 +6,10 @@ const verifyJwt = require('../jwt/jwtVerification')
 
 router.post('/signup', userController.registerUser)
 router.post('/login', userController.authUser)
-router.post('/validateToken',verifyJwt,userController.userInfo), 
+router.post('/validateToken',verifyJwt,userController.userInfo)
+router.post('/new/community', userController.createCommunity)
+router.get("/all/community", userController.allCommunities )
+router.post("/new/message", userController.storeMessage)
+router.get("/get/singleCommunity", userController.communityMessages)
 
 module.exports = router;

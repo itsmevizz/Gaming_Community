@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { GrGroup } from "react-icons/gr";
@@ -9,8 +9,9 @@ import { FaNetworkWired } from "react-icons/fa";
 import { GiNewspaper } from "react-icons/gi";
 import { MdOutlineLiveTv } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion"
 
-function HomeSidePannel() {
+function HomeSidePannel(props) {
   const navigate = useNavigate();
   const Main = [
     { title: "Community", icon: <FaNetworkWired />, link: "/Community" },
@@ -29,12 +30,20 @@ function HomeSidePannel() {
     navigate(link);
   };
 
+
+
   return (
-    <div className="select-none ">
+    <motion.div className="select-none "
+    // initial={{ x: -400 }}
+    // animate={{ x: -0 }}
+    // transition={{ delay: .5, type:'tween' }}
+
+    >
       <div className="m-0 p-0  overflow-x-hidden overflow-y-clip h-auto lg:h-auto w-[100px] duration-300 lg:w-[250px] fixed bg-white shadow-2xl dark:bg-[#1a2634] dark:text-white">
-        <div className="lg:ml-8 scale-y-0 lg:scale-y-100 -mt-4 text-3xl font-poppins font-bold  duration-500 fixed">
+        <motion.div className="lg:ml-8 scale-y-0 lg:scale-y-100 -mt-4 text-3xl font-poppins font-bold  duration-500 fixed"
+        >
           TEAMHOST
-        </div>
+        </motion.div>
         <div className="flex h-screen ">
           <ul className="text-black text-xl  my-5 lg:my-[40px] duration-500 ">
             <li className="ml-10 lg:flex font-sans mt-5 mb-5 text-sm hover:text-orange-400  invisible lg:visible  dark:text-white dark:hover:text-orange-400" onClick={() => navigate('/')}>
@@ -117,7 +126,7 @@ function HomeSidePannel() {
           </ul>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

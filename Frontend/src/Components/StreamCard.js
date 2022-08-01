@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function Streams() {
+    const [rating, setRating] = useState()
 
     const img = [
         {
@@ -36,6 +37,24 @@ function Streams() {
                         </div>
                     )
                 })}
+            </div>
+
+            <div>
+                {
+                    [...Array(50)].map((star, index) => {
+                        return (
+                            <button
+                                type='button'
+                                key={index}
+                                className= "font-extrabold text-3xl"
+                                style={index === rating ? { color: "red"} : index < rating ? { color: "blue"} : { color: "black"}}
+                                onClick={() => setRating(index)}
+                            >
+                                <span>*</span>
+                            </button>
+                        )
+                    })
+                }
             </div>
 
         </div>

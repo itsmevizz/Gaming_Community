@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: blue orange;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  /* background: orange; */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(215, 215, 215);
+  border-radius: 20px;
+}
+
+
 @layer utilities {
     /* Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {

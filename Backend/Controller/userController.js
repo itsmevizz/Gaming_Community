@@ -2,6 +2,7 @@ const { response, json } = require('express');
 const asyncHandler = require('express-async-handler');
 const { base } = require('../models/userModel');
 const user = require("../models/userModel");
+const community = require('../models/communityModel')
 const generateToken = require('../utils/genarateToken')
 var jwt = require('jsonwebtoken');
 
@@ -126,7 +127,53 @@ module.exports = {
     //   throw new Error('Error...!')
     // }
 
-  })
+  }),
+
+
+  createCommunity: asyncHandler(async (req, res) => {
+
+    console.log(req.body);
+
+    await community.create(req.body).then((data) => {
+      console.log(data);
+
+    })
+
+
+  }),
+
+  allCommunities: asyncHandler(async (req, res) => {
+    const communities = await community.find({ community })
+    res.json({ communities })
+  }),
+
+  storeMessage: asyncHandler(async (req, res) => {
+    const id = req.query.id
+    const message = req.body
+
+    community.updateOne(
+      { _id: id },
+      { $push: { Messeges: req.body } },
+      (err, data) => {
+        if (err) {
+          res.send("Errorrr")
+        } else {
+          res.json({
+            Ok: 'Success'
+          })
+        }
+      }
+    )
+
+  }),
+
+  communityMessages: asyncHandler(async (req, res) => {
+    const id = req.query.id
+    console.log(id);
+    const data = await community.findById(id)
+    res.json(data.Messeges)
+    })
+
 
 }
 

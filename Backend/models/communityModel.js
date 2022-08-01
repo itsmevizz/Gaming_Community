@@ -3,45 +3,46 @@ const mongoose = require("mongoose")
 const communitySchema = mongoose.Schema({
     Name: {
         type: String,
-        require: true
+        required: true
     },
     CoverImage: {
         type: String,
-        require: true
+        required: true
     },
     CreaterId: {
-        UderId: String,
-        require: true
+        type: String,
+        required: true
     },
-    Members: {
-        users: [
-            {
-                Name: {
-                    type: String,
-                    require: true
-                },
-                UserId: {
-                    id: String,
-                    require: true
-                },
-                require: true
+    Members: [
+        {
+            UserName: {
+                type: String,
+                required: true
             },
-        ],
-        require: true
-    },
+            UserId: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     Messeges: [
         {
-            userId: {
-                type: String,
-                require: true
+            User: {
+                Name: String,
+                uid: String,
             },
-            Messege: {
-                type: String,
-                require: true
-            },
+            Message: String,
+
+        },
+        {
 
             timestamps: true,
         }
     ]
 
 })
+
+
+const community = mongoose.model('community', communitySchema)
+
+module.exports = community
