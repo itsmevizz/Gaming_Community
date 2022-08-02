@@ -169,9 +169,8 @@ module.exports = {
 
   communityMessages: asyncHandler(async (req, res) => {
     const id = req.query.id
-    console.log(id);
     const data = await community.findById(id)
-    res.json(data.Messeges)
+    res.json({Messages:data.Messeges, CommunityName:data.Name})
     })
 
 

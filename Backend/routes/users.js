@@ -11,6 +11,6 @@ router.get('/all/users', userController.getUserData)
 router.get("/all/community", userController.allCommunities )
 router.post('/new/community', userController.createCommunity)
 router.post("/new/message", userController.storeMessage)
-router.get("/get/singleCommunity", userController.communityMessages)
+router.get("/get/singleCommunityMessage", userController.communityMessages)
 
 module.exports = router;

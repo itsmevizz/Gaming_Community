@@ -4,9 +4,17 @@ import HomeNavBar from "../Components/HomeNavBar";
 import HomeSidePannel from "../Components/HomeSidePannel";
 import CreationForm from "../Components/CreationForm";
 import Chat from "../Components/Chats";
+import { useDispatch, useSelector } from "react-redux"
+import { getMembers } from '../redux/features/MembersSlice'
 import { motion, AnimatePresence } from 'framer-motion'
 
 function MyGroups() {
+  const dispatch = useDispatch()
+  const { members, loading } = useSelector((state) => ({ ...state.members }))
+  useEffect(() => {
+    dispatch(getMembers())
+    console.log(members);
+  }, [])
   const [addCommunity, showAddCommunity] = useState(false);
   const add = () => {
     addCommunity ? showAddCommunity(false) : showAddCommunity(true);
@@ -59,23 +67,22 @@ function MyGroups() {
               <button className="w-full sm:w-1/2 md:w-1/2 h-10 mt-4 uppercase text-white bg-orange-500 dark:bg-orange-600 rounded-3xl font-poppins text-xs lg:text-sm font-medium transition hover:shadow-lg hover:scale-105  hover:text-red-200 hover:duration-700 ease-in-out">
                 Create Community
               </button>
-            </div>
+            </div> 
             :
             ""
         )}
 
         {window.location.pathname === "/GroupChat" ? <motion.div className="flex justify-center ml-16"
-        initial={{x:200}}
-        animate={{x:0}}
-        
+          initial={{ x: 200 }}
+          animate={{ x: 0 }}
         >
-          <Chat />
+          <Chat/>
         </motion.div> :
           <div className="w-[70%] mx-[23%] sm:mx-[20%] md:mx-[20%] lg:mx-[19%] mt-2 duration-500">
             <div className=" font-mono font-semibold text-xl pl-8 -mb-1 mt-5">
               My Communitys
             </div>
-            <CommunityCard myGroup={true} />
+            <CommunityCard myGroup={true} data={members} loading={loading}/>
 
           </div>
         }

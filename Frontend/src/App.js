@@ -37,12 +37,10 @@ function App() {
           />
           <Route
             path="/Login"
-            // element={user ? <Navigate replace to="/" /> : <Login />}
             element={<Login />}
           />
           <Route
             path="/Signup"
-            // element={user ? <Navigate replace to="/" /> : <SignUpPage />}
             element={<SignUpPage />}
           />
           <Route path="/community" element={<Community />} />
@@ -50,7 +48,7 @@ function App() {
           <Route path="/News" element={<News />} />
           <Route path="/Streams" element={<Streams />} />
           <Route path="/MyGroup" element={<MyGroups />} />
-          <Route path="/GroupChat" element={<MyGroups />}/>
+          <Route path="/GroupChat" element={<MyGroups />} />
           <Route path="/Chat" element={<Chat />} />
           <Route path="/Friends" element={<Friends />} />
           <Route path="/Profile" element={<Profile />} />

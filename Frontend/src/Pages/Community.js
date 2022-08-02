@@ -6,19 +6,23 @@ import { useSelector, useDispatch } from "react-redux"
 import { getCommunities } from "../redux/features/CommunitySlice"
 
 function Community() {
-  // const { communities, loading } = useSelector((state) => ({ ...state.communities }))
-  // const dispatch = useDispatch()
-  // useEffect(() => {
-  //   dispatch(getCommunities())
-  //   loading ? console.log("Loading") : console.log(communities);
-  // }, [])
+  const { communities, loading } = useSelector((state) => ({ ...state.communities }))
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getCommunities())
+    loading ? console.log("Loading") : console.log(communities[0].Members.length);
+
+  }, [])
   return (
     <div>
       <HomeNavBar />
       <HomeSidePannel />
       <div className='w-[80%] mx-[23%] sm:mx-[20%] md:mx-[20%] lg:mx-[19%] mt-2 duration-500'>
         <div className=' font-mono font-semibold text-xl pl-8 -mb-1 mt-5'>All Communitys</div>
-          <CommunityCard myGroup={false}/>
+        {
+         
+            <CommunityCard myGroup={false} data={communities} loading={loading} />
+        }
       </div>
 
 
