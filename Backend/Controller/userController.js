@@ -76,9 +76,9 @@ module.exports = {
 
   getUserData: asyncHandler(async (req, res) => {
     const users = await user.find({ user })
-    res.json({
+    res.json(
       users
-    })
+    )
   }),
   blockUser: asyncHandler(async (req, res) => {
     console.log(req.body);
@@ -144,7 +144,7 @@ module.exports = {
 
   allCommunities: asyncHandler(async (req, res) => {
     const communities = await community.find({ community })
-    res.json({ communities })
+    res.json(communities)
   }),
 
   storeMessage: asyncHandler(async (req, res) => {

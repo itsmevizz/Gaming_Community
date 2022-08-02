@@ -19,11 +19,12 @@ import Profile from "./Pages/Profile";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux"
 import { ValidateToken } from "./redux/features/authSlice"
+import Chats from "./Components/Chats";
 function App() {
   const dispatch = useDispatch()
   const token = localStorage.getItem("Token")
   useEffect(() => {
-    dispatch(ValidateToken(token))
+    // dispatch(ValidateToken(token))
   }, [])
   return (
     <div>
@@ -49,6 +50,7 @@ function App() {
           <Route path="/News" element={<News />} />
           <Route path="/Streams" element={<Streams />} />
           <Route path="/MyGroup" element={<MyGroups />} />
+          <Route path="/GroupChat" element={<MyGroups />}/>
           <Route path="/Chat" element={<Chat />} />
           <Route path="/Friends" element={<Friends />} />
           <Route path="/Profile" element={<Profile />} />

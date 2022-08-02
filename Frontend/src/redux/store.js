@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 import AuthReducer from "./features/authSlice"
 import darkModeReducer from "./features/darkMode";
+import communityReducer from './features/CommunitySlice'
+import membersReducer from "./features/MembersSlice"
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
-import CommunityChat from "./features/CommunityChat";
 
 // export default configureStore({
 //     reducer:{
@@ -16,7 +17,8 @@ import CommunityChat from "./features/CommunityChat";
     reducer: {
         auth: AuthReducer,
         dark: darkModeReducer,
-        groupChat : CommunityChat,
+        communities:communityReducer,
+        members: membersReducer,
     }
 })
 
