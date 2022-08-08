@@ -8,7 +8,9 @@ const app = require('../app');
 const debug = require('debug')('backend:server');
 const http = require('http');
 const { Server } = require('socket.io')
-const { message } = require('../routes/socket')
+const { message } = require('../routes/socket');
+const { Socket } = require('dgram');
+
 
 /**
  * Get port from environment and store in Express.
@@ -20,22 +22,22 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
 const server = http.createServer(app);
+
+  
 
 
 // ******* Socket Io
+// const io = new Server(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"]
+//   }
+// })
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
-})
-
-io.on("connection", (socket) => {
-  message(socket)
-})
+// io.on("connection",(Socket)=>{
+//   console.log('a user connected');
+// } )
 
 // ********************
 

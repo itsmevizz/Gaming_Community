@@ -10,8 +10,6 @@ function Community() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getCommunities())
-    loading ? console.log("Loading") : console.log(communities[0].Members.length);
-
   }, [])
   return (
     <div>

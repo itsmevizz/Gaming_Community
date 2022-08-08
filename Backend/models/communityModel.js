@@ -32,12 +32,9 @@ const communitySchema = mongoose.Schema({
                 uid: String,
             },
             Message: String,
+            Time:String
 
-        },
-        {
-
-            timestamps: true,
-        }
+        },  
     ]
 
 })

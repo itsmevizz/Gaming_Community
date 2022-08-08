@@ -41,7 +41,7 @@ module.exports = {
     const token = req.headers['token']
     const { id } = jwt.decode(token)
     const User = await user.findOne({ id })
-    console.log(User);
+    // console.log(User);
     res.json({
       _id: User._id,
       name: User.name,
@@ -150,10 +150,10 @@ module.exports = {
   storeMessage: asyncHandler(async (req, res) => {
     const id = req.query.id
     const message = req.body
-
+    console.log(message);
     community.updateOne(
       { _id: id },
-      { $push: { Messeges: req.body } },
+      { $push: { Messeges: message } },
       (err, data) => {
         if (err) {
           res.send("Errorrr")
@@ -170,8 +170,38 @@ module.exports = {
   communityMessages: asyncHandler(async (req, res) => {
     const id = req.query.id
     const data = await community.findById(id)
-    res.json({Messages:data.Messeges, CommunityName:data.Name})
+    res.json({ Messages: data.Messeges, CommunityName: data.Name })
+  }),
+
+  joinCommunity: asyncHandler(async (req, res) => {
+    const id = req.query.id
+    const data = req.body
+    console.log(data, id);
+    community.updateOne(
+      { _id: id },
+      { $push: { Members: data.userData } },
+      (err, data) => {
+        if (err) {
+          console.log("Error happnd");
+          res.send("Error")
+
+        } else {
+          console.log(data);
+          res.send("Success")
+        }
+      }
+    )
+  }),
+
+  getMyCommunities: asyncHandler(async(req,res)=>{
+    id = req.query
+    console.log(id.id);
+    const myCommunitys = await community.find().catch((err)=>{
+      console.log("DB Error");
     })
+
+    console.log(myCommunitys);
+  })
 
 
 }

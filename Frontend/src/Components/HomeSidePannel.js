@@ -13,11 +13,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa"
 import { getCommunities } from "../redux/features/CommunitySlice"
 import { useSelector, useDispatch } from "react-redux"
-import {getGroupChat} from '../redux/features/GroupMessage'
+import { getGroupChat } from '../redux/features/GroupMessage'
+import { useSearchParams } from 'react-router-dom';
 
 function HomeSidePannel(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const [searchParams, setSearchParams] = useSearchParams();
   const { communities, loading } = useSelector((state) => ({ ...state.communities }))
 
   const Main = [
@@ -35,14 +37,15 @@ function HomeSidePannel(props) {
   const Goto = (link) => {
     navigate(link);
   };
-  const communication = (id)=>{
-    navigate(`?id=${id}`)
+
+
+  const communication = (id) => {
+    setSearchParams(`?id=${id}`)
+    dispatch(getGroupChat(id))
   }
   const query = new URLSearchParams(window.location.search);
   const channelId = query.get('id')
-  useEffect(()=>{
-    dispatch(getGroupChat(channelId))
-  },[channelId])
+
 
   return (
     <motion.div
@@ -58,25 +61,24 @@ function HomeSidePannel(props) {
               <div className="mt-11 mb-3 rounded-md h-10 w-40 border-2 hover:bg-slate-200 ml-9 pt-2 pl-16 sticky [&>*]:hover:rotate-[360deg]" onClick={() => { navigate('/MyGroup') }} ><FaArrowLeft className="duration-500" /></div>
               <ul className="text-black text-xl  duration-500">
                 {loading ?
-                ""
-                  // [...Array(13)].map(() => {
-                  //   return (
-                  //     <AnimatePresence>
-                  //     <motion.li className="pl-5 pt-3 pb-3 ml-4 animate-pulse rounded-md bg-slate-300 h-10 mb-2 bg-opacity-50 w-[220px]" 
-                  //     exit={{ opacity: 0 }}
-                  //     transition={{ duration: 0.5 }}
-                  //     ></motion.li>
-                  //     </AnimatePresence>
-                  //   )
-                  // })
+                  [...Array(10)].map(() => {
+                    return (
+                      <AnimatePresence>
+                        <motion.li className="pl-5 pt-3 pb-3 ml-4 animate-pulse rounded-md bg-slate-300 h-10 mb-2 bg-opacity-50 w-[220px]"
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                        ></motion.li>
+                      </AnimatePresence>
+                    )
+                  })
                   :
                   communities?.map((list, index) => {
                     return (
-                      <motion.li key={index} className={`${channelId === list._id ? "bg-slate-500 bg-opacity-70" : " hover:bg-slate-300 hover:bg-opacity-50" }   text-base font-extrabold pl-5 pt-3 pb-3 ml-4 rounded-md  w-[220px] `} 
-                      onClick={()=>{communication(list._id)}}
-                      > <span className={`text-xl  ${channelId === list._id ? "text-gray-700" : "text-gray-500"} `} 
-                      initial={{x:-50 }}
-                      animate={{ x:0 }}
+                      <motion.li key={index} className={`${channelId === list._id ? "bg-slate-500 bg-opacity-70" : " hover:bg-slate-300 hover:bg-opacity-50"}   text-base font-extrabold pl-5 pt-3 pb-3 ml-4 rounded-md  w-[220px] `}
+                        onClick={() => { communication(list._id) }}
+                      > <span className={`text-xl  ${channelId === list._id ? "text-gray-700" : "text-gray-500"} `}
+                        initial={{ x: -50 }}
+                        animate={{ x: 0 }}
                       >#</span>{`${list.Name}`} </motion.li>
                     )
 

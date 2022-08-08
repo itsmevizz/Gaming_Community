@@ -5,19 +5,22 @@ import CommunityCard from '../Components/Cards'
 import HomeNavBar from '../Components/HomeNavBar'
 import HomeSidePannel from '../Components/HomeSidePannel'
 import NewsArchive from '../Components/NewsCarousel'
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { motion } from 'framer-motion'
+import {getCommunities} from "../redux/features/CommunitySlice"
 
 function UserHome() {
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => ({ ...state.auth }))
+  const {communities, loading} = useSelector((state)=>({...state.communities}))
   const Navigation = useNavigate()
+
+
   useEffect(() => {
-    console.log(user, "This is user");
-    if (!user) {
-      // Navigation('/login')
-    }
+    dispatch(getCommunities())
+    console.log(communities);
     document.title = "Home";
-  })
+  },[])
   return (
     <div className='select-none'>
       <HomeNavBar />
@@ -33,9 +36,8 @@ function UserHome() {
         </div>
         <div className='w-[70%] mx-[23%] sm:mx-[20%] md:mx-[20%] lg:mx-[19%] mt-2 duration-500 '>
           <h1 className="uppercase  ml-10 mt-1 font-mono font-medium -mb-6 text-sm lg:text-xl upperca">Communities</h1>
-          <CommunityCard />
+          <CommunityCard myGroup={false} data={communities} loading={loading} />
         </div>
-
       </motion.div>
     </div>
   )

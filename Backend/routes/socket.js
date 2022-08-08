@@ -1,12 +1,32 @@
-module.exports = {
-    message: (socket) => {
-        socket.on('join_room',(data)=>{
-            socket.join(data)
-        })
+const { disconnect } = require('mongoose');
+const { Server } = require('socket.io');
 
-        socket.on("send_message", (data) => {
-            // socket.broadcast.emit("receive_message", data)
-            socket.to(data.room).emit("receive_message",data)
-        })
-    }
-}
+const io = require("socket.io")(3006, {
+    pingTimeout: 60000,
+    cors: {
+        origin: "http://localhost:3000"
+    },
+})
+
+
+
+io.on("connection", (socket) => {
+    console.log("User COnnected");
+
+    socket.on('setup', (communityId) => {
+        socket.join(communityId)
+        socket.emit("connected")
+        console.log("User COnnected", communityId)
+    })
+
+    socket.on("JoinCommunity", (communityId) => {
+        socket.join(communityId)
+        console.warn("User Joinde community", communityId);
+    })
+
+    socket.on("NewMessage", (data) => {
+        console.log(data);
+        const info = data
+        socket.in(data.channel).emit("messageReceived",info)
+    })
+})

@@ -21,20 +21,8 @@ function NewsCard(props) {
     }
     useEffect(() => {
         newsapi()
-    }, [])
+    },[])
 
-    const img = [
-        {
-            img: `url("../Image/fortnite-screen-ps4-24may17-cfbc1.webp")`,
-            active: true,
-        },
-        { img: `url("../Image/10927348.jpg")` },
-        { img: `url( "../Image/ekLR4no6adtCNHNuLV3cc3.jpg")` },
-        { img: `url( "../Image/ekLR4no6adtCNHNuLV3cc3.jpg")` },
-        { img: `url( "../Image/ekLR4no6adtCNHNuLV3cc3.jpg")` },
-        { img: `url( "../Image/ekLR4no6adtCNHNuLV3cc3.jpg")` },
-        { img: `url( "../Image/ekLR4no6adtCNHNuLV3cc3.jpg")` },
-    ];
     return (
         <div class={`${props.value} left-[110px] lg:left-72 w-[65%] sm:w-[70%] md:w-[75%] lg:w-[80%] lg:my-[20px] duration-500 relative select-none`}>
             {loading ?

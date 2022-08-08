@@ -5,15 +5,17 @@ import HomeSidePannel from "../Components/HomeSidePannel";
 import CreationForm from "../Components/CreationForm";
 import Chat from "../Components/Chats";
 import { useDispatch, useSelector } from "react-redux"
-import { getMembers } from '../redux/features/MembersSlice'
+import { getCommunities } from '../redux/features/CommunitySlice'
+import {getMyCommuniries} from "../redux/features/MyCommunitiesSlice"
 import { motion, AnimatePresence } from 'framer-motion'
-
 function MyGroups() {
   const dispatch = useDispatch()
-  const { members, loading } = useSelector((state) => ({ ...state.members }))
+  const {user} = useSelector((state)=>({...state.auth}))
+  const { groupChat } = useSelector((state) => ({ ...state.groupChat }))
+  // const { members, loading } = useSelector((state) => ({ ...state.members }))
+  const { communities, loading } = useSelector((state) => ({ ...state.communities }))
   useEffect(() => {
-    dispatch(getMembers())
-    console.log(members);
+    dispatch(getMyCommuniries(user?._id))
   }, [])
   const [addCommunity, showAddCommunity] = useState(false);
   const add = () => {
@@ -76,13 +78,13 @@ function MyGroups() {
           initial={{ x: 200 }}
           animate={{ x: 0 }}
         >
-          <Chat/>
+          <Chat chat={groupChat}/>
         </motion.div> :
           <div className="w-[70%] mx-[23%] sm:mx-[20%] md:mx-[20%] lg:mx-[19%] mt-2 duration-500">
             <div className=" font-mono font-semibold text-xl pl-8 -mb-1 mt-5">
               My Communitys
             </div>
-            <CommunityCard myGroup={true} data={members} loading={loading}/>
+            <CommunityCard myGroup={true} data={communities} loading={loading}/>
 
           </div>
         }

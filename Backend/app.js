@@ -9,7 +9,6 @@ require('dotenv').config({path:'./.env'})
 
 const adminRouter = require('./routes/admin');
 const usersRouter = require('./routes/users');
-
 const app = express();
 
 app.use((req, res, next) => {
