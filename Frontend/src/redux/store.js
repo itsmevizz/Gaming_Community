@@ -5,24 +5,18 @@ import communityReducer from './features/CommunitySlice'
 import membersReducer from "./features/MembersSlice"
 import groupChatReducer from "./features/GroupMessage"
 import sendNewMessage from "./features/SendGroupMessageSlice"
-import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
-import thunk from 'redux-thunk';
+import JoinCommunityReducer from "./features/JoinCommunity";
 
-// export default configureStore({
-//     reducer:{
-//         auth :AuthReducer   
-//     }
-// })
 
- const store = configureStore({
+const store = configureStore({
     reducer: {
         auth: AuthReducer,
         dark: darkModeReducer,
-        communities:communityReducer,
+        communities: communityReducer,
         members: membersReducer,
-        groupChat:groupChatReducer,
-        newMessage : sendNewMessage,
+        groupChat: groupChatReducer,
+        newMessage: sendNewMessage,
+        joinCommunity: JoinCommunityReducer,
     }
 })
 

@@ -6,7 +6,6 @@ import CreationForm from "../Components/CreationForm";
 import Chat from "../Components/Chats";
 import { useDispatch, useSelector } from "react-redux"
 import { getCommunities } from '../redux/features/CommunitySlice'
-import {getMyCommuniries} from "../redux/features/MyCommunitiesSlice"
 import { motion, AnimatePresence } from 'framer-motion'
 function MyGroups() {
   const dispatch = useDispatch()
@@ -14,9 +13,10 @@ function MyGroups() {
   const { groupChat } = useSelector((state) => ({ ...state.groupChat }))
   // const { members, loading } = useSelector((state) => ({ ...state.members }))
   const { communities, loading } = useSelector((state) => ({ ...state.communities }))
+  const {status} = useSelector((state)=>({...state.joinCommunity}))
   useEffect(() => {
-    dispatch(getMyCommuniries(user?._id))
-  }, [])
+    dispatch(getCommunities())
+  }, [status, dispatch])
   const [addCommunity, showAddCommunity] = useState(false);
   const add = () => {
     addCommunity ? showAddCommunity(false) : showAddCommunity(true);
@@ -74,7 +74,7 @@ function MyGroups() {
             ""
         )}
 
-        {window.location.pathname === "/GroupChat" ? <motion.div className="flex justify-center ml-16"
+        {window.location.pathname === "/GroupChat" ? <motion.div className="flex justify-center"
           initial={{ x: 200 }}
           animate={{ x: 0 }}
         >

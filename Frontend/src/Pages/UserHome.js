@@ -14,13 +14,13 @@ function UserHome() {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const {communities, loading} = useSelector((state)=>({...state.communities}))
   const Navigation = useNavigate()
+  const {status} = useSelector((state)=>({...state.joinCommunity}))
 
 
   useEffect(() => {
     dispatch(getCommunities())
-    console.log(communities);
     document.title = "Home";
-  },[])
+  },[status, dispatch ])
   return (
     <div className='select-none'>
       <HomeNavBar />

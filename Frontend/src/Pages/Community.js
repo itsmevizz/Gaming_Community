@@ -10,7 +10,7 @@ function Community() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getCommunities())
-  }, [])
+  }, [ dispatch])
   return (
     <div>
       <HomeNavBar />

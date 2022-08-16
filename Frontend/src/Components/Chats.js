@@ -19,6 +19,7 @@ function Chats(props) {
   const scrollRef = useRef();
   var socket
   useEffect(() => {
+    console.log(props.chat);
     socket= io("ws://localhost:3006");
     socket.emit("setup",user?._id)
     socket.on('connected',()=>{
@@ -87,7 +88,7 @@ function Chats(props) {
   };
 
   return (
-    <div className=" w-[70%] shadow-2xl">
+    <div className=" w-[70%] shadow-2xl ">
       <div className="  grid place-content-center justify-start border mt-2  h-12 bg-white shadow-lg border-l-0 border-r-0 dark:bg-gray-600">
         <h1 className="text-black dark:text-white font-medium pl-5 font-mono">
           <span className="font-extrabold text-lg font-mono"># </span>
@@ -100,29 +101,29 @@ function Chats(props) {
               }`}
         </h1>
       </div>
-      <div className="">
+      <div className="top-0 right-0 left-0 bottom-0">
         <div
           ref={scrollRef}
-          className="h-[650px] bg-white bottom-0 relative dark:bg dark:bg-[#393b40] !overflow-y-scroll overflow-x-hidden"
+        className="max-h-[700px] bg-white bottom-0 relative dark:bg dark:bg-[#393b40] !overflow-y-scroll overflow-x-hidden"
         >
           {props?.chat?.Messages.map((message, index) => {
             return (
               <div key={index} ref={scrollRef}>
-                <div className=" bottom-0 sm:pl-8 dark:text-white p-3 m-2 flex w-[99%] hover:shadow-sm hover:bg-slate-300 rounded-lg hover:bg-opacity-50">
-                  <div className="w-8 mt-2 mr-2 sm:visible invisible">
+                <div className={`bottom-0 sm:pl-8 dark:text-white p-3  m-2 flex w-[99%] hover:shadow-sm hover:bg-slate-300 rounded-lg hover:bg-opacity-50`}>
+                  <div className={`w-8 mt-2 mr-2 sm:visible invisible  `}>
                     <img
-                      className="rounded-full"
+                      className={`rounded-full `}
                       src="../Image/img_avatar.png"
                       alt=""
                     />
                   </div>
-                  <div className=" w-[99%]">
-                    <h1 className="text-sm font-semibold font-Roboto">
+                  <div className={` w-[99%] `}>
+                    <h1 className={`text-sm font-semibold font-Roboto `}>
                       {message?.User.Name}
                     </h1>
                     <div className="flex justify-between">
-                      <p className=" text-sm font-light">{message?.Message}</p>
-                      <span className="text-xs justify-end">
+                      <p className= {`text-sm font-light `}>{message?.Message}</p>
+                      <span className={`text-xs justify-end `}>
                         {format(message?.Time)}
                       </span>
                     </div>

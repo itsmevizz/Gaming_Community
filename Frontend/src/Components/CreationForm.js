@@ -1,12 +1,24 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createCommunity } from "../redux/features/CreateCommunitySlice";
+import { refreshCommunities } from "../redux/features/CommunitySlice"
 
 function NormalForm() {
-  const [CommunityName, setCommunityName] = useState('')
-  const [Topic, setTopic] = useState('')
-  const [Description, setDescription] = useState('')
+  const [CommunityName, setCommunityName] = useState("");
+  const [Topic, setTopic] = useState("");
+  const [Description, setDescription] = useState("");
+  const dispatch = useDispatch();
   const hangleSubimission = (e) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+    const data = {
+      Name:CommunityName,
+      Topic:Topic,
+      Description:Description,
+    };
+    dispatch(createCommunity(data)).then(()=>{
+      dispatch(refreshCommunities())
+    })
+  };
   return (
     <div>
       <form onSubmit={hangleSubimission}>
@@ -21,10 +33,11 @@ function NormalForm() {
               </label>
               <input
                 value={CommunityName}
-                onChange={(e) => { setCommunityName(e.target.value) }}
+                onChange={(e) => {
+                  setCommunityName(e.target.value);
+                }}
                 type="text"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                
               />
             </div>
             <div class="mb-2">
@@ -35,11 +48,12 @@ function NormalForm() {
                 Topic
               </label>
               <input
-              value={Topic}
+                value={Topic}
                 type="text"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                onChange={(e)=>{setTopic(e.target.value)}}
-                
+                onChange={(e) => {
+                  setTopic(e.target.value);
+                }}
               />
             </div>
             <div class="mb-2">
@@ -50,13 +64,12 @@ function NormalForm() {
                 Description
               </label>
               <textarea
-              value={Description}
+                value={Description}
                 type="text"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                onChange={(e)=>{
-                  setDescription(e.target.value)
+                onChange={(e) => {
+                  setDescription(e.target.value);
                 }}
-                
               />
             </div>
             <div>
@@ -66,7 +79,10 @@ function NormalForm() {
               >
                 Upload file
               </label>
-              <input type="file" class="block w-full mb-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+              <input
+                type="file"
+                class="block w-full mb-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
             </div>
             <button
               type="submit"

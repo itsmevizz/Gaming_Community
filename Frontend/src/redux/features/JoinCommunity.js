@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api"
 
 export const joinToCommunity = createAsyncThunk('/joinCommunity',async (data)=>{
-    // console.log(data);
     try{
         const response = await api.joinCommunity(data)
         return response.data
@@ -14,20 +13,21 @@ export const joinToCommunity = createAsyncThunk('/joinCommunity',async (data)=>{
 const joinCommunitySlice = createSlice({
     name:'joinToCommunity',
     initialState:{
+        status:false,
         error:null,
         loading:false
     },
     extraReducers:{
         [joinToCommunity.pending]: (state, action) => {
+            state.status = false
             state.loading = true
-            // state.groupChat = null
         },
         [joinToCommunity.fulfilled]: (state, action) => {
             state.loading = false
-            alert("Success")
+            state.status = true
         },
         [joinToCommunity.rejected]: (state, action) => {
-            state.error = 'Somthing went wrong'
+            state.error = 'Somthing wrong'
         },
     }
 })

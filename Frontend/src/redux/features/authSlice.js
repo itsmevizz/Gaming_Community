@@ -15,7 +15,7 @@ export const login = createAsyncThunk('auth/login', async ({ email, password, na
 
 export const ValidateToken = createAsyncThunk('auth/validateToken', async (token, { rejectWithValue }) => {
     try {
-        const response = await api.ValidateToken(token)
+        const response = await api.ValidateToken()
         console.log(response,'fine');
         return response.data
     } catch (err) {

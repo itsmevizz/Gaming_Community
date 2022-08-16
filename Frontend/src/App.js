@@ -3,6 +3,7 @@ import {
   Route,
   Routes,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/UserHome";
@@ -16,16 +17,14 @@ import MyGroups from "./Pages/MyGroups";
 import Chat from "./Pages/Chat";
 import Friends from "./Pages/Friends";
 import Profile from "./Pages/Profile";
-import NotFound from "./Pages/NotFound"; 
+import NotFound from "./Pages/NotFound";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux"
 import { ValidateToken } from "./redux/features/authSlice"
-import Chats from "./Components/Chats";
 function App() {
   const dispatch = useDispatch()
-  const token = localStorage.getItem("Token")
   useEffect(() => {
-    dispatch(ValidateToken(token))
+    dispatch(ValidateToken())
   }, [])
   return (
     <div>

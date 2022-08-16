@@ -10,6 +10,14 @@ export const getCommunities = createAsyncThunk("/communities", async()=>{
     }
 })
 
+export const refreshCommunities = createAsyncThunk("/communities", async()=>{
+    try{
+        const response = await api.communities()
+        return response.data
+    }catch(err){
+
+    }
+})
 
 const communitySlice = createSlice({
     name:'communities',
@@ -27,6 +35,15 @@ const communitySlice = createSlice({
             state.loading = false
         },
         [getCommunities.rejected]:(state, action)=>{
+            state.error = true
+        },
+        [refreshCommunities.pending]:(state, action)=>{
+            state.loading = false
+        },
+        [refreshCommunities.fulfilled]:(state, action)=>{
+            state.communities =action.payload
+        },
+        [refreshCommunities.rejected]:(state, action)=>{
             state.error = true
         },
     }

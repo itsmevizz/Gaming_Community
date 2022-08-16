@@ -21,6 +21,7 @@ function HomeSidePannel(props) {
   const dispatch = useDispatch()
   const [searchParams, setSearchParams] = useSearchParams();
   const { communities, loading } = useSelector((state) => ({ ...state.communities }))
+  const { user } = useSelector((state) => ({ ...state.auth }))
 
   const Main = [
     { title: "Community", icon: <FaNetworkWired />, link: "/Community" },
@@ -74,12 +75,15 @@ function HomeSidePannel(props) {
                   :
                   communities?.map((list, index) => {
                     return (
+                      `${list.Members?.filter((D) => D.UserId === user?._id)}` ?
                       <motion.li key={index} className={`${channelId === list._id ? "bg-slate-500 bg-opacity-70" : " hover:bg-slate-300 hover:bg-opacity-50"}   text-base font-extrabold pl-5 pt-3 pb-3 ml-4 rounded-md  w-[220px] `}
                         onClick={() => { communication(list._id) }}
                       > <span className={`text-xl  ${channelId === list._id ? "text-gray-700" : "text-gray-500"} `}
                         initial={{ x: -50 }}
                         animate={{ x: 0 }}
                       >#</span>{`${list.Name}`} </motion.li>
+                      :
+                      ""
                     )
 
                   })

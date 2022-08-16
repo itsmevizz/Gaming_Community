@@ -4,6 +4,9 @@ import "../index.css";
 import { dark, light } from "../redux/features/darkMode";
 
 function DarkMode(props) {
+  console.log(dark());
+
+  
   const dispatch = useDispatch()
   const { value } = useSelector((state) => state.dark)
   const darkMode = () => {

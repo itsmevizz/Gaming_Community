@@ -5,9 +5,16 @@ const communitySchema = mongoose.Schema({
         type: String,
         required: true
     },
+    Topic:{
+        type:String,
+        required: true
+    },
+    Description:{
+        type:String,
+        required: true
+    },
     CoverImage: {
         type: String,
-        required: true
     },
     CreaterId: {
         type: String,
