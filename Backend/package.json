@@ -17,6 +17,8 @@
     "mongoose": "^6.4.4",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.19",
-    "socket.io": "^4.5.1"
+    "socket.io": "^4.5.1",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.5.0"
   }
 }

@@ -176,7 +176,7 @@ function CommunityCard(props) {
               ) : (
                 ""
               )
-            ) : props.members ? (
+            ) : props.members || props.community ? (
               info?._id === user?._id ? (
                 " "
               ) : (

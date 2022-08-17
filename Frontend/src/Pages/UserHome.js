@@ -36,7 +36,7 @@ function UserHome() {
         </div>
         <div className='w-[70%] mx-[23%] sm:mx-[20%] md:mx-[20%] lg:mx-[19%] mt-2 duration-500 '>
           <h1 className="uppercase  ml-10 mt-1 font-mono font-medium -mb-6 text-sm lg:text-xl upperca">Communities</h1>
-          <CommunityCard myGroup={false} data={communities} loading={loading} />
+          <CommunityCard myGroup={false} community={true} data={communities} loading={loading} />
         </div>
       </motion.div>
     </div>

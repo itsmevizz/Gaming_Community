@@ -19,7 +19,7 @@ function Community() {
         <div className=' font-mono font-semibold text-xl pl-8 -mb-1 mt-5'>All Communitys</div>
         {
          
-            <CommunityCard myGroup={false} data={communities} loading={loading} />
+            <CommunityCard myGroup={false} community={true} data={communities} loading={loading} />
         }
       </div>
 
