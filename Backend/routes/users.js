@@ -15,16 +15,8 @@ router.post("/new/message", verifyJwt, userController.storeMessage);
 router.get("/get/singleCommunityMessage", userController.communityMessages);
 router.patch("/join/community", verifyJwt, userController.joinCommunity);
 router.patch("/follow/user", verifyJwt, userController.followUser);
+router.patch('/un/follow', verifyJwt,userController.unFollow) 
 
-// const io = new Server(server, {
-//     cors: {
-//       origin: "http://localhost:3000",
-//       methods: ["GET", "POST"]
-//     }
-//   })
 
-//   io.on("connection",(Socket)=>{
-//     console.log('a user connected');
-//   } )
 
 module.exports = router;

@@ -16,3 +16,4 @@ export const joinCommunity = (data) => API.patch(`/join/community?id=${data.data
 export const follow = (data) => API.patch('/follow/user', data)
 export const ValidateToken = () => API.post('/validateToken')
 export const createCommunity = (data) => API.post('/new/community', data)
+export const unfollow = (data) => API.patch('un/follow', data)

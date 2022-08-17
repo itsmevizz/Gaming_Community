@@ -130,7 +130,7 @@ module.exports = {
   }),
 
   createCommunity: asyncHandler(async (req, res) => {
-    const authHeader = await req.headers["token"];
+    const authHeader = req.headers["token"];
     const { id } = jwt.decode(authHeader);
     const data = {
       ...req.body,
@@ -212,7 +212,8 @@ module.exports = {
   }),
 
   followUser: asyncHandler(async (req, res) => {
-    const authHeader = await req.headers["token"];
+    console.log("Follow", req.body);
+    const authHeader = req.headers["token"];
     const { id } = jwt.decode(authHeader);
     const { name, _id } = await user.findById(id);
     const data = {
@@ -241,6 +242,33 @@ module.exports = {
       })
       .catch(() => {
         console.log("Error");
+      });
+  }),
+
+  unFollow: asyncHandler(async (req, res) => {
+    console.log("UnFollow", req.body);
+    const authHeader = req.headers["token"];
+    const { id } = jwt.decode(authHeader);
+    const { _id } = req.body;
+    await user
+      .updateOne({ _id: id }, { $pull: { Following: { uid: _id } } })
+      .then(() => {
+        user.updateOne(
+          { _id: _id },
+          { $pull: { Followers: { uid: id } } },
+          (err, data) => {
+            if (err) {
+              console.log("Error");
+              throw new Error("Somthing Error");
+            } else {
+              console.log("Unfollow Success");
+              res.send("Success");
+            }
+          }
+        );
+      })
+      .catch(() => {
+        throw new Error("Somthing Error");
       });
   }),
 };
