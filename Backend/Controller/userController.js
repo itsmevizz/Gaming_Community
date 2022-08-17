@@ -3,8 +3,11 @@ const asyncHandler = require("express-async-handler");
 const { base } = require("../models/userModel");
 const user = require("../models/userModel");
 const community = require("../models/communityModel");
+const personalchat = require("../models/personalChatModel");
 const generateToken = require("../utils/genarateToken");
 var jwt = require("jsonwebtoken");
+const { serve } = require("swagger-ui-express");
+const ObjectId = require('mongoose').Types.ObjectId; 
 
 module.exports = {
   registerUser: asyncHandler(async (req, res, next) => {
@@ -271,4 +274,64 @@ module.exports = {
         throw new Error("Somthing Error");
       });
   }),
+  friends: asyncHandler(async (req, res) => {
+    const authHeader = req.headers["token"];
+    const { id } = jwt.decode(authHeader);
+    console.log(id);
+    const Following = await user.findById(id).select({ Following: 1 });
+    console.log(Following);
+    res.json(Following);
+  }),
+
+  personalChat: asyncHandler(async (req, res) => {
+    const authHeader = req.headers["token"];
+    const { id } = jwt.decode(authHeader);
+    const {Sender, Recever, Messages} = req.body
+    const msg ={
+      UserName:Messages.UserName,
+      UserId:Messages.UserId,
+      Message:Messages.Message,
+      Time:Messages.Time
+    }
+    const sender =await user.findById(id).select({ChatId:1})
+    const recever = await user.findById(Recever.Id).select({ChatId:1})
+    // const message = await personalchat.findById((sender.ChatId))
+    const message = await personalchat.findOne({$and:[{_id:sender.ChatId, _id:recever.ChatId}]})
+    if (message) {
+      console.log("Existing Chat");
+      await personalchat.updateOne({_id:message._id},{$push:{Messages:Messages}}).then(()=>{
+        res.send("Success")
+      }).catch(()=>{
+        res.send("Errorrr")
+      })
+    }else{
+      console.log("New chat");
+      personalchat
+        .create(req.body)
+        .then(async({_id}) => {
+          await user.updateOne({_id:Sender.Id},{$push:{ChatId:_id}})
+          await user.updateOne({_id:Recever.Id},{$push:{ChatId:_id}})
+          res.send("Success");
+        })
+        .catch(() => {
+          console.log("Error");
+        });
+    }
+  }),
+  getPersolanChat: asyncHandler(async(req,res)=>{
+    const authHeader = req.headers["token"];
+    const { id } = jwt.decode(authHeader);
+    const _id = req.query.id
+    const user1 = await user.findById(_id)
+    const user2 = await user.findById(id).select({ChatId:1})
+      const message = await personalchat.findOne({$and:[{_id:user1.ChatId, _id:user2.ChatId}]}).catch(()=>{
+        console.log("Error");
+      })
+      if (message) {
+        console.log(message);
+        res.send(message)
+      }else{
+        console.log("Empty");
+      }
+  })
 };

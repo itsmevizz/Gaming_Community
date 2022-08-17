@@ -21,10 +21,7 @@ const userSchema = mongoose.Schema(
             required: true,
             default: true,
         },
-        ChatId: {
-            type: String,
-            required: false,
-        },
+        ChatId:[],
         Followers: [
             {
                 UserName: String,
@@ -37,6 +34,7 @@ const userSchema = mongoose.Schema(
                 uid: String
             }
         ]
+
     },
     {
         timestamps: true,

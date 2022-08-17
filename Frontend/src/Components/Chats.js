@@ -17,37 +17,49 @@ function Chats(props) {
   const query = new URLSearchParams(window.location.search);
   const channelId = query.get("id");
   const scrollRef = useRef();
-  var socket
+  var socket;
   useEffect(() => {
     console.log(props.chat);
-    socket= io("ws://localhost:3006");
-    socket.emit("setup",user?._id)
-    socket.on('connected',()=>{
+    socket = io("ws://localhost:3006");
+    socket.emit("setup", user?._id);
+    socket.on("connected", () => {
       // alert("connected")
-    })
+    });
   }, []);
 
-  
-    useEffect(()=>{
-      const query = new URLSearchParams(window.location.search);
-      const channelId = query.get("id");
-      socket?.emit("JoinCommunity", channelId)
-      console.log("user joind", channelId);
-    },[channelId])
-
-  useEffect(()=>{
+  useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const channelId = query.get("id");
-    socket?.on("messageReceived",(info)=>{
-      if(channelId === info.channel ){
-        // Give Notification
-        console.log("User is in same channel", channelId, "Socket :", info.channel);
-        dispatch(getGroupChat(info.channel));
-      }else{
-        console.log("Other channel")
-      }
-    })
-  })
+    if (props.personal) {
+      console.log("Personal");
+    } else {
+      socket?.emit("JoinCommunity", channelId);
+      console.log("user joind", channelId);
+    }
+  }, [channelId]);
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const channelId = query.get("id");
+    if (props.personal) {
+      console.log("Personal");
+    } else {
+      socket?.on("messageReceived", (info) => {
+        if (channelId === info.channel) {
+          // Give Notification
+          console.log(
+            "User is in same channel",
+            channelId,
+            "Socket :",
+            info.channel
+          );
+          dispatch(getGroupChat(info.channel));
+        } else {
+          console.log("Other channel");
+        }
+      });
+    }
+  });
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -60,12 +72,14 @@ function Chats(props) {
   useEffect(() => {
     if (window.location.pathname === "/GroupChat" && channelId) {
       dispatch(getGroupChat(channelId));
+    }else{
+      console.log("Personal");
     }
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [channelId, communityChat, dispatch]);
 
   const sendMessage = (e) => {
-    socket= io("ws://localhost:3006");
+    socket = io("ws://localhost:3006");
     e.preventDefault();
     dispatch(
       newCommunityMessage({
@@ -80,11 +94,10 @@ function Chats(props) {
         },
       })
     );
-    socket.emit("NewMessage",{
-      sender:user._id,
-      channel:channelId
-    })
-    
+    socket.emit("NewMessage", {
+      sender: user._id,
+      channel: channelId,
+    });
   };
 
   return (
@@ -104,12 +117,14 @@ function Chats(props) {
       <div className="top-0 right-0 left-0 bottom-0">
         <div
           ref={scrollRef}
-        className="max-h-[700px] bg-white bottom-0 relative dark:bg dark:bg-[#393b40] !overflow-y-scroll overflow-x-hidden"
+          className="max-h-[700px] min-h-[500px] bg-white bottom-0 relative dark:bg dark:bg-[#393b40] !overflow-y-scroll overflow-x-hidden"
         >
           {props?.chat?.Messages.map((message, index) => {
             return (
               <div key={index} ref={scrollRef}>
-                <div className={`bottom-0 sm:pl-8 dark:text-white p-3  m-2 flex w-[99%] hover:shadow-sm hover:bg-slate-300 rounded-lg hover:bg-opacity-50`}>
+                <div
+                  className={`bottom-0 sm:pl-8 dark:text-white p-3  m-2 flex w-[99%] hover:shadow-sm hover:bg-slate-300 rounded-lg hover:bg-opacity-50`}
+                >
                   <div className={`w-8 mt-2 mr-2 sm:visible invisible  `}>
                     <img
                       className={`rounded-full `}
@@ -122,7 +137,9 @@ function Chats(props) {
                       {message?.User.Name}
                     </h1>
                     <div className="flex justify-between">
-                      <p className= {`text-sm font-light `}>{message?.Message}</p>
+                      <p className={`text-sm font-light `}>
+                        {message?.Message}
+                      </p>
                       <span className={`text-xs justify-end `}>
                         {format(message?.Time)}
                       </span>
