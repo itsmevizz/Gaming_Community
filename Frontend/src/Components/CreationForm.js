@@ -17,6 +17,9 @@ function NormalForm() {
     };
     dispatch(createCommunity(data)).then(()=>{
       dispatch(refreshCommunities())
+      setCommunityName("")
+      setTopic("")
+      setDescription("")
     })
   };
   return (

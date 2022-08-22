@@ -16,8 +16,8 @@ router.get("/get/singleCommunityMessage", userController.communityMessages);
 router.patch("/join/community", verifyJwt, userController.joinCommunity);
 router.patch("/follow/user", verifyJwt, userController.followUser);
 router.patch("/un/follow", verifyJwt, userController.unFollow);
-router.get('/my/friends',verifyJwt, userController.friends )
-router.post('/personal/chat',verifyJwt, userController.personalChat)
-router.get('/get/personal/chat',verifyJwt, userController.getPersolanChat)
+router.get('/my/friends', userController.friends )
+router.post('/new/personal/chat',verifyJwt, userController.personalChat)
+router.get('/get/personal/chat', userController.getPersolanChat)
 
 module.exports = router;

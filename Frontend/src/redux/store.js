@@ -8,7 +8,7 @@ import sendNewMessage from "./features/SendGroupMessageSlice";
 import JoinCommunityReducer from "./features/JoinCommunity";
 import followersReducer from "./features/getFollowers";
 import personalMsgReducer from './features/getPersonalMsg'
-
+import sendPersonalMsg from "./features/SendePersonalMsg" 
 const store = configureStore({
   reducer: {
     auth: AuthReducer,
@@ -20,6 +20,7 @@ const store = configureStore({
     joinCommunity: JoinCommunityReducer,
     friends: followersReducer,
     personal:personalMsgReducer,
+    newPersonalMessage : sendPersonalMsg,
   },
 });
 

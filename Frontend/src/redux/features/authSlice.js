@@ -49,7 +49,6 @@ const authSlice = createSlice({
         [ValidateToken.fulfilled]:(state, action)=>{
             state.loading = false
             state.user = action.payload
-            console.log(state.user,"Hi user");
         },
         [ValidateToken.rejected]:(state, action)=>{
             state.loading = false

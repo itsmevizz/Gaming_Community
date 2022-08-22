@@ -8,12 +8,13 @@ import { getFollowers } from "../redux/features/getFollowers";
 
 function Chat() {
   const { user } = useSelector((state) => ({ ...state.auth }));
+  const { friends } = useSelector((state) => ({ ...state.friends }));
+  const { PersonalMessage } = useSelector((state) => ({ ...state.personal }));
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(user);
+    console.log(user, "User 007");
     dispatch(getFollowers());
   }, []);
-  const { friends } = useSelector((state) => ({ ...state.friends }));
   return (
     <div>
       <HomeNavBar />
@@ -23,7 +24,7 @@ function Chat() {
           <FriendsList friends={friends} />
         </div>
         <div className="w-[100%]">
-          <Chats  personal={true} />
+          <Chats  personal={true} chat={PersonalMessage} />
         </div>
       </div>
     </div>

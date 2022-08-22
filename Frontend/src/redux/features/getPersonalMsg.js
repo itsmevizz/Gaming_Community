@@ -11,7 +11,7 @@ export const getPersonalMsg = createAsyncThunk("/personalMsg", async (id) => {
 const personalMsgSlice = createSlice({
   name: "myFriends",
   initialState: {
-    message: null,
+    PersonalMessage: null,
     error: false,
     loading: false,
   },
@@ -20,7 +20,7 @@ const personalMsgSlice = createSlice({
       state.loading = true;
     },
     [getPersonalMsg.fulfilled]: (state, action) => {
-      state.message = action.payload;
+      state.PersonalMessage = action.payload;
       state.loading = false;
     },
     [getPersonalMsg.rejected]: (state, action) => {

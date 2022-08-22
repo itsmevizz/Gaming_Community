@@ -4,6 +4,7 @@ import { IoMdAddCircle } from "react-icons/io";
 import { getCommunities } from "../redux/features/CommunitySlice";
 import { useSelector, useDispatch } from "react-redux";
 import { newCommunityMessage } from "../redux/features/SendGroupMessageSlice";
+import { newPersonalMessage } from "../redux/features/SendePersonalMsg";
 import { getGroupChat } from "../redux/features/GroupMessage";
 import { io } from "socket.io-client";
 import { format } from "timeago.js";
@@ -14,12 +15,12 @@ function Chats(props) {
   const { communities } = useSelector((state) => ({ ...state.communities }));
   const { user } = useSelector((state) => ({ ...state.auth }));
   const { communityChat } = useSelector((state) => ({ ...state.newMessage }));
+  const { friends } = useSelector((state) => ({ ...state.friends }));
   const query = new URLSearchParams(window.location.search);
   const channelId = query.get("id");
   const scrollRef = useRef();
   var socket;
   useEffect(() => {
-    console.log(props.chat);
     socket = io("ws://localhost:3006");
     socket.emit("setup", user?._id);
     socket.on("connected", () => {
@@ -41,6 +42,7 @@ function Chats(props) {
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const channelId = query.get("id");
+    console.log(props.chat);
     if (props.personal) {
       console.log("Personal");
     } else {
@@ -72,32 +74,54 @@ function Chats(props) {
   useEffect(() => {
     if (window.location.pathname === "/GroupChat" && channelId) {
       dispatch(getGroupChat(channelId));
-    }else{
+    } else {
       console.log("Personal");
     }
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [channelId, communityChat, dispatch]);
 
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
     socket = io("ws://localhost:3006");
     e.preventDefault();
-    dispatch(
-      newCommunityMessage({
-        channelId,
-        msg: {
-          User: {
-            Name: user.name,
-            uid: user._id,
-          },
-          Message: message,
-          Time: Date.now(),
-        },
-      })
+    const [Name] = await friends?.Following?.filter(
+      (data) => data.uid === channelId
     );
-    socket.emit("NewMessage", {
-      sender: user._id,
-      channel: channelId,
-    });
+    console.log(Name);
+    if (props.personal) {
+      setMessage("");
+      dispatch(
+        newPersonalMessage({
+          Sender: { Name: user.name, Id: user._id },
+          Recever: { Name: Name.UserName, Id: Name.uid },
+          Messages: [
+            {
+              UserName: user.name,
+              UserId: user._id,
+              Message: message,
+              Time: Date.now(),
+            },
+          ],
+        })
+      );
+    } else {
+      dispatch(
+        newCommunityMessage({
+          channelId,
+          msg: {
+            User: {
+              Name: user.name,
+              uid: user._id,
+            },
+            Message: message,
+            Time: Date.now(),
+          },
+        })
+      );
+      socket.emit("NewMessage", {
+        sender: user._id,
+        channel: channelId,
+      });
+    }
   };
 
   return (
@@ -106,7 +130,9 @@ function Chats(props) {
         <h1 className="text-black dark:text-white font-medium pl-5 font-mono">
           <span className="font-extrabold text-lg font-mono"># </span>
           {props.personal
-            ? "Chat"
+            ? friends?.Following?.map((data) =>
+                data.uid === channelId ? data.UserName : ""
+              )
             : `${
                 props.chat?.CommunityName
                   ? props.chat.CommunityName
@@ -119,30 +145,63 @@ function Chats(props) {
           ref={scrollRef}
           className="max-h-[700px] min-h-[500px] bg-white bottom-0 relative dark:bg dark:bg-[#393b40] !overflow-y-scroll overflow-x-hidden"
         >
-          {props?.chat?.Messages.map((message, index) => {
+          {props?.chat?.Messages?.map((message, index) => {
             return (
               <div key={index} ref={scrollRef}>
                 <div
-                  className={`bottom-0 sm:pl-8 dark:text-white p-3  m-2 flex w-[99%] hover:shadow-sm hover:bg-slate-300 rounded-lg hover:bg-opacity-50`}
+                  className={`bottom-0 sm:pl-8 dark:text-white p-3 m-2 flex w-[99%] hover:shadow-sm   hover:bg-slate-300 rounded-lg hover:bg-opacity-50 `}
                 >
-                  <div className={`w-8 mt-2 mr-2 sm:visible invisible  `}>
+                  <div
+                    className={`w-8  sm:visible invisible ${
+                      (message.UserId || message.User?.uid) === user?._id
+                        ? "order-2"
+                        : "mt-1 mr-3"
+                    } `}
+                  >
                     <img
-                      className={`rounded-full `}
+                      className={`rounded-full  ${
+                        (message.UserId || message.User?.uid) === user?._id
+                          ? ""
+                          : ""
+                      } `}
                       src="../Image/img_avatar.png"
                       alt=""
                     />
                   </div>
-                  <div className={` w-[99%] `}>
-                    <h1 className={`text-sm font-semibold font-Roboto `}>
-                      {message?.User.Name}
-                    </h1>
-                    <div className="flex justify-between">
-                      <p className={`text-sm font-light `}>
+                  <div
+                    className={` w-[99%] text-justify ${
+                      (message.UserId || message.User?.uid) === user?._id
+                        ? " mr-3 mt-1"
+                        : ""
+                    } `}
+                  >
+                    <div className={`flex ${(message.UserId || message.User?.uid) === user?._id ? "justify-end" : "" } `}>
+                      <div>
+
+                      <p
+                        className={`text-sm font-light min-w-[100px] max-w-[300px] text-justify p-3 ${
+                          (message.UserId || message.User?.uid) === user?._id
+                            ? "order-2  mr-2  bg-[#128C7E] bg-opacity-60 rounded-2xl text-end text-white"
+                            : " bg-[#075E54] opacity-90 text-white rounded-2xl"
+                        }`}
+                      >
+                        <h1
+                          className={`text-sm font-semibold font-Roboto pb-2  ${
+                            (message.UserId || message.User?.uid) === user?._id
+                              ? " order-2 text-end mb-1 text-black"
+                              : ""
+                          }`}
+                        >
+                          {props.personal
+                            ? message.UserName
+                            : message.User?.Name}
+                        </h1>
                         {message?.Message}
                       </p>
-                      <span className={`text-xs justify-end `}>
+                      <span className={`text-xs`}>
                         {format(message?.Time)}
                       </span>
+                      </div>
                     </div>
                   </div>
                 </div>
