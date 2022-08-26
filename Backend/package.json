@@ -16,6 +16,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.4",
     "morgan": "~1.9.1",
+    "node-media-server": "^2.4.7",
     "nodemon": "^2.0.19",
     "socket.io": "^4.5.1",
     "swagger-jsdoc": "^6.2.5",

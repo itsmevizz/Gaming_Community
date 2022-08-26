@@ -25,8 +25,14 @@ io.on("connection", (socket) => {
     })
 
     socket.on("NewMessage", (data) => {
-        console.log(data);
+        console.log(data,"\n New msg dataaaa0077");
         const info = data
         socket.in(data.channel).emit("messageReceived",info)
     })
+
+    socket.on("JoinPersonalChat", (chatId) => {
+        socket.join(chatId)
+        console.warn("User Joinde PersonalChat", chatId);
+    })
+    
 })

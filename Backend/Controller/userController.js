@@ -277,7 +277,6 @@ module.exports = {
   friends: asyncHandler(async (req, res) => {
     const authHeader =await req.headers["token"];
     const { id } = jwt.decode(authHeader);
-    console.log(id);
     const Following = await user.findById(id).select({ Following: 1 });
     res.json(Following);
   }),
@@ -287,7 +286,6 @@ module.exports = {
     const { id } = jwt.decode(authHeader);
     const {Sender, Recever, Messages} = req.body
 
-    console.log(req.body);
    
     const sender =await user.findById(id).select({ChatId:1})
     const recever = await user.findById(Recever.Id).select({ChatId:1})
@@ -296,14 +294,12 @@ module.exports = {
     console.log(filteredChannelId," Channel Id");
     // const message = await personalchat.findOne({$and:[{_id:sender.ChatId, _id:recever.ChatId}]})
     if (filteredChannelId) {
-      console.log("Existing Chat");
       await personalchat.updateOne({_id:filteredChannelId},{$push:{Messages:Messages}}).then(()=>{
         res.send("Success")
       }).catch(()=>{
         res.send("Errorrr")
       })
     }else{
-      console.log("New chat");
       personalchat
         .create(req.body)
         .then(async({_id}) => {

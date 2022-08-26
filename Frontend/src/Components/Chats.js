@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { newCommunityMessage } from "../redux/features/SendGroupMessageSlice";
 import { newPersonalMessage } from "../redux/features/SendePersonalMsg";
 import { getGroupChat } from "../redux/features/GroupMessage";
+import {getPersonalMsg} from "../redux/features/getPersonalMsg"
 import { io } from "socket.io-client";
 import { format } from "timeago.js";
 function Chats(props) {
@@ -16,6 +17,7 @@ function Chats(props) {
   const { user } = useSelector((state) => ({ ...state.auth }));
   const { communityChat } = useSelector((state) => ({ ...state.newMessage }));
   const { friends } = useSelector((state) => ({ ...state.friends }));
+  const {personalChat} = useSelector((state) => ({ ...state.newPersonalMessage }));
   const query = new URLSearchParams(window.location.search);
   const channelId = query.get("id");
   const scrollRef = useRef();
@@ -31,8 +33,9 @@ function Chats(props) {
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const channelId = query.get("id");
+    const PersonalId = props.chat?._id
     if (props.personal) {
-      console.log("Personal");
+      socket?.emit("JoinPersonalChat", PersonalId);
     } else {
       socket?.emit("JoinCommunity", channelId);
       console.log("user joind", channelId);
@@ -42,9 +45,22 @@ function Chats(props) {
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const channelId = query.get("id");
-    console.log(props.chat);
     if (props.personal) {
-      console.log("Personal");
+      socket?.on("messageReceived", (info) => {
+        console.log(info.channel,"Info channel", user._id,"User Id");
+        if (channelId === info.sender) {
+          // Give Notification
+          console.log(
+            "User is in same channel",
+            channelId,
+            "Socket :",
+            info.channel
+          );
+          dispatch(getPersonalMsg(channelId))
+        } else {
+          console.log("Other channel");
+        }
+      });
     } else {
       socket?.on("messageReceived", (info) => {
         if (channelId === info.channel) {
@@ -75,7 +91,7 @@ function Chats(props) {
     if (window.location.pathname === "/GroupChat" && channelId) {
       dispatch(getGroupChat(channelId));
     } else {
-      console.log("Personal");
+      console.log("Personal Chat");
     }
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [channelId, communityChat, dispatch]);
@@ -86,7 +102,6 @@ function Chats(props) {
     const [Name] = await friends?.Following?.filter(
       (data) => data.uid === channelId
     );
-    console.log(Name);
     if (props.personal) {
       setMessage("");
       dispatch(
@@ -102,7 +117,11 @@ function Chats(props) {
             },
           ],
         })
-      );
+      )
+      socket.emit("NewMessage", {
+        sender: user._id,
+        channel: channelId,
+      });
     } else {
       dispatch(
         newCommunityMessage({

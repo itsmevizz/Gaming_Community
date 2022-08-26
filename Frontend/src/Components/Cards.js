@@ -249,7 +249,7 @@ function CommunityCard(props) {
                           }
                           className={`w-full sm:w-1/2 md:w-1/2 ${
                             props.myGroup ? "h-7" : "h-10"
-                          } mt-4 uppercase text-white bg-orange-500 rounded-3xl font-poppins text-xs lg:text-sm font-medium transition hover:shadow-lg hover:scale-105  hover:text-red-200 hover:duration-700 ease-in-out`}
+                          }  mt-4 uppercase text-white bg-orange-500 rounded-3xl font-poppins text-xs lg:text-sm font-medium transition hover:shadow-lg hover:scale-105  hover:text-red-200 hover:duration-700 ease-in-out`}
                         >
                           {props.members
                             ? `${info.Followers?.filter(
