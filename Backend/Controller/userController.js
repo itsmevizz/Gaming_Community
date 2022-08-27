@@ -292,7 +292,6 @@ module.exports = {
     // const message = await personalchat.findById((sender.ChatId))
     const [filteredChannelId] =await sender.ChatId.filter(value => recever.ChatId.includes(value));
     console.log(filteredChannelId," Channel Id");
-    // const message = await personalchat.findOne({$and:[{_id:sender.ChatId, _id:recever.ChatId}]})
     if (filteredChannelId) {
       await personalchat.updateOne({_id:filteredChannelId},{$push:{Messages:Messages}}).then(()=>{
         res.send("Success")

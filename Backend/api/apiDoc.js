@@ -103,7 +103,6 @@
  *                          format: password
  */
 
-
 /**
  * @swagger
  *  /login:
@@ -119,5 +118,134 @@
  *      responses:
  *            200:
  *                 description: Login successfully
- *      
+ *
  */
+
+/**
+ * @swagger
+ *  components:
+ *      schema:
+ *          newcommunity:
+ *               type: object
+ *               properties:
+ *                      Name:
+ *                          description: CommunityName
+ *                          type: string
+ *                      Topic:
+ *                          description: Topic
+ *                          type: string
+ *                          format: string
+ *                      Description:
+ *                          description: Description
+ *                          type: string
+ *                          format: string
+ *                                            
+ */
+
+/**
+ * @swagger
+ *  /new/community:
+ *  post:
+ *      summary: For Creating New Community
+ *      description: For Creating New Community after a user logedin
+ *      parameters:
+ *            - in: header
+ *              name: token
+ *              type: string
+ *              format: uuid
+ *              required: true    
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#components/schema/newcommunity'
+ *      responses:
+ *            200:
+ *                 description: Created successfully
+ *
+ */
+
+/**
+ * @swagger
+ *  /follow/user:
+ *  post:
+ *      summary: Follow a User
+ *      description: For following users
+ *      parameters:
+ *            - in: header
+ *              name: token
+ *              type: string
+ *              format: uuid
+ *              required: true    
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                            UserName:
+ *                                description: UserName of that person who we want to follow
+ *                                type: string
+ *                            uid:
+ *                              description: Id of that user
+ *                              type: string
+ *                            
+ *                      
+ *      responses:
+ *            200:
+ *                 description: successfull
+ */
+
+
+
+/**
+ * @swagger
+ *  /un/follow:
+ *  post:
+ *      summary: Unfollow a User
+ *      description: For unfollowing users
+ *      parameters:
+ *            - in: header
+ *              name: token
+ *              type: string
+ *              format: uuid
+ *              required: true    
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                            _id:
+ *                              description: Id of that user
+ *                              type: string
+ *                            
+ *                      
+ *      responses:
+ *            200:
+ *                 description: successfull
+ */
+
+
+/**
+ * @swagger
+ *  /my/friends:
+ *  get:
+ *      summary: All followers
+ *      description: Get all the friends
+ *      parameters:
+ *            - in: header
+ *              name: token
+ *              type: string
+ *              format: uuid
+ *              required: true    
+ *                            
+ *                      
+ *      responses:
+ *            200:
+ *                 description: successfull
+ */
+

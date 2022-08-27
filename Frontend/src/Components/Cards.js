@@ -10,6 +10,7 @@ import { refreshCommunities } from "../redux/features/CommunitySlice";
 import { refreshMembers } from "../redux/features/MembersSlice";
 import { unFollowUser } from "../redux/features/unFollowUser";
 function CommunityCard(props) {
+  
   const { user } = useSelector((state) => ({ ...state.auth }));
   const { status, loading, error } = useSelector((state) => ({
     ...state.joinCommunity,
